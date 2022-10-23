@@ -5,6 +5,9 @@ git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 # patch packages to not install Calamares packages from repository:
 patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 
+# patch profiledef.sh -- set isoname to unstable:
+patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
+
 cd EndeavourOS-ISO
 
 # Copy packages from Build Calamares git packages into iso structure:
