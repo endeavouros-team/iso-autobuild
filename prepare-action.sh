@@ -11,6 +11,10 @@ patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 # patch run_before_squashfs.sh to remove github folder before squashfs:
 patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
 
+# copy live session Wallpaper into ISO structure:
+cp livewall.png EndeavourOS-ISO/airootfs/root/
+
+# run preperations inside ISO structure
 cd EndeavourOS-ISO
 
 # Copy packages from Build Calamares git packages into iso structure:
