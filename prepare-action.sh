@@ -3,6 +3,9 @@
 git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 cd "EndeavourOS-ISO"
 
+# Copy packages from Build Calamares git packages into iso structure:
+cp /home/build/packages/* airootfs/root/packages/
+
 # Get mirrorlist for offline installs
 mkdir "airootfs/etc/pacman.d"
 wget -qN --show-progress -P "airootfs/etc/pacman.d/" "https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/mirrorlist"
