@@ -1,4 +1,5 @@
 #!/bin/sh
+cd "EndeavourOS-ISO"
 ./mkarchiso "."
 ls out/ > /tmp/isoname
 cd out/
