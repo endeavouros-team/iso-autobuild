@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#clone ISO sources and joun the path:
+git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
+cd "EndeavourOS-ISO"
 
 # Get mirrorlist for offline installs
 mkdir "airootfs/etc/pacman.d"
