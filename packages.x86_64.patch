@@ -1,0 +1,15 @@
+--- packages.x86_64	2022-10-23 14:55:33.591373702 +0200
++++ packages.x86_64-git	2022-10-23 14:55:48.424862632 +0200
+@@ -287,9 +287,9 @@
+ yay
+ 
+ ## Calamares EndeavourOS
+-calamares_config_ce
+-calamares_config_default
+-calamares_current
++#calamares_config_ce
++#calamares_config_default
++#calamares_current
+ ckbcomp
+ kvantum
+ qt5ct
