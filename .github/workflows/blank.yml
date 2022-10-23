@@ -1,0 +1,60 @@
+name: Build EndeavourOS devel ISO
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    permissions:
+      contents: write
+
+    container:
+      image: archlinux:latest
+      options: --privileged
+
+    steps:
+      - uses: actions/checkout@v2
+
+      #- name: Set current date as environment variable
+      #  run: echo "DATE=`date +'%Y.%m.%d'`" >>$GITHUB_ENV
+      
+      - name: Set current date and hour as environment variable
+        run: echo "NOW=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_ENV
+
+      - name: Update packages and install archiso
+        run: "pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools wget sudo base-devel curl lftp"
+                      
+      - name: Add EndeavourOS Repo
+        run: bash add-EndeavourOS.sh
+        
+      - name: Build Calamares git packages
+        run: bash build-packages.sh
+        
+      - name: preparations to build ISO
+        run: bash prepare-action.sh 
+        
+      - name: Build ISO
+        run: bash build.sh
+          
+      - name: Upload a backup to server
+        run: "curl -g -k -T EndeavourOS-ISO/out/*.sha512sum ${{secrets.SERVER_STRING_PRIVATE}} && curl -g -k -T EndeavourOS-ISO/out/*.iso ${{secrets.SERVER_STRING_PRIVATE}}"
+        
+      - name: archive for release
+        run: tar -czvf EndeavourOS-ISO/out/unstable.tar.gz EndeavourOS-ISO/out/*.sha512sum out/*.iso
+    
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+         repo_name: endeavouros-team/development-iso-testing
+         repo_token: ${{ secrets.ACCESS_TOKEN }}
+         file: EndeavourOS-ISO/out/unstable.tar.gz
+         asset_name: ${{ env.NOW }}-unstable.tar.gz
+         tag: ${{ env.NOW }}
+         prerelease: true
+         overwrite: false
+         body: "latest unstable iso"
