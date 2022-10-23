@@ -1,5 +1,5 @@
 # isotesters
-devel iso release repo
-**Great stuff Great opportunities **
+--ISO build automation--
 
-A GitHub action that builds the ISO directly from latest EndeavourOS-ISO sources (git) together with latest development packages for calamares (installer)
+A GitHub and needed scripts:
+action that builds the ISO directly from latest EndeavourOS-ISO sources (git) together with latest development packages for calamares (installer).
