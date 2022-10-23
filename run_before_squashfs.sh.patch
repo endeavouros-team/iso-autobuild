@@ -1,0 +1,11 @@
+--- run_before_squashfs.sh	2022-10-23 17:06:34.990612455 +0200
++++ run_before_squashfs-git.sh	2022-10-23 17:07:52.024676359 +0200
+@@ -93,6 +93,8 @@
+ # Clean pacman log
+ rm "/var/log/pacman.log"
+ rm /var/cache/pacman/pkg/*
++# remove github folder from GitHub action
++rm -R /github
+ 
+ echo "############################"
+ echo "# end chrooted commandlist #"
