@@ -17,7 +17,7 @@ cd /home/build/PKGBUILDS/calamares_config_ce-git
 sudo -u build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
 cd /home/build/packages/ 
-cp calamares-git*.pkg.tar.zst /__w/EndeavourOS-ISO-autobuild/EndeavourOS-ISO-autobuild/airootfs/root/packages/
-cp calamares_config_ce-git*.pkg.tar.zst /__w/EndeavourOS-ISO-autobuild/EndeavourOS-ISO-autobuild/airootfs/root/packages/
-cp calamares_config_default-git*.pkg.tar.zst /__w/EndeavourOS-ISO-autobuild/EndeavourOS-ISO-autobuild/airootfs/root/packages/
+cp calamares-git*.pkg.tar.zst /__w/isotesters/isotesters/EndeavourOS-ISO/airootfs/root/packages/
+cp calamares_config_ce-git*.pkg.tar.zst /__w/isotesters/isotesters/EndeavourOS-ISO/airootfs/root/packages/
+cp calamares_config_default-git*.pkg.tar.zst /__w/isotesters/isotesters/EndeavourOS-ISO/airootfs/root/packages/
 # extra-packages
