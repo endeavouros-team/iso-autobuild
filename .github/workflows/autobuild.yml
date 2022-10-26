@@ -19,9 +19,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      #- name: Set current date as environment variable
-      #  run: echo "DATE=`date +'%Y.%m.%d'`" >>$GITHUB_ENV
       
       - name: Set current date and hour as environment variable
         run: echo "NOW=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_ENV
@@ -41,8 +38,8 @@ jobs:
       - name: Build ISO
         run: bash build.sh
           
-      - name: Upload a backup to server
-        run: "curl -g -k -T EndeavourOS-ISO/out/*.sha512sum ${{secrets.SERVER_STRING_PRIVATE}} && curl -g -k -T EndeavourOS-ISO/out/*.iso ${{secrets.SERVER_STRING_PRIVATE}}"
+      # - name: Upload a backup to server
+        # run: "curl -g -k -T EndeavourOS-ISO/out/*.sha512sum ${{secrets.SERVER_STRING_PRIVATE}} && curl -g -k -T EndeavourOS-ISO/out/*.iso ${{secrets.SERVER_STRING_PRIVATE}}"
         
       - name: archive for release
         run: tar -czvf EndeavourOS-ISO/out/unstable.tar.gz EndeavourOS-ISO/out/*.sha512sum EndeavourOS-ISO/out/*.iso
