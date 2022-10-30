@@ -10,9 +10,3 @@ sudo -u build git clone https://github.com/endeavouros-team/PKGBUILDS
 cd /home/build/PKGBUILDS/calamares-git
 sudo -u build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
-cd /home/build/PKGBUILDS/calamares_config_default-git
-sudo -u build makepkg -f
-cp *.pkg.tar.zst /home/build/packages/
-cd /home/build/PKGBUILDS/calamares_config_ce-git
-sudo -u build makepkg -f
-cp *.pkg.tar.zst /home/build/packages/
