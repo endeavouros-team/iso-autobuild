@@ -38,20 +38,20 @@ jobs:
       - name: Build ISO
         run: bash build.sh
           
-      - name: Upload a backup to server
-        run: "curl -g -k -T EndeavourOS-ISO/out/*.sha512sum ${{secrets.SERVER_STRING_PRIVATE}} && curl -g -k -T EndeavourOS-ISO/out/*.iso ${{secrets.SERVER_STRING_PRIVATE}}"
+      #- name: Upload a backup to server
+      #  run: "curl -g -k -T EndeavourOS-ISO/out/*.sha512sum ${{secrets.SERVER_STRING_PRIVATE}} && curl -g -k -T EndeavourOS-ISO/out/*.iso ${{secrets.SERVER_STRING_PRIVATE}}"
         
-      #- name: archive for release
-      #  run: tar -czvf EndeavourOS-ISO/out/unstable.tar.gz EndeavourOS-ISO/out/*.sha512sum EndeavourOS-ISO/out/*.iso
+      - name: archive for release
+        run: tar -czvf EndeavourOS-ISO/out/unstable.tar.gz EndeavourOS-ISO/out/*.sha512sum EndeavourOS-ISO/out/*.iso
     
-      #- name: Upload binaries to release
-      #  uses: svenstaro/upload-release-action@v2
-      #  with:
-      #   repo_name: endeavouros-team/development-iso-testing
-      #   repo_token: ${{ secrets.ACCESS_TOKEN }}
-      #   file: EndeavourOS-ISO/out/unstable.tar.gz
-      #   asset_name: ${{ env.NOW }}-unstable.tar.gz
-      #  tag: ${{ env.NOW }}
-      #   prerelease: true
-      #   overwrite: true
-      #   body: "latest unstable iso"
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+         repo_name: endeavouros-team/development-iso-testing
+         repo_token: ${{ secrets.ACCESS_TOKEN }}
+         file: EndeavourOS-ISO/out/unstable.tar.gz
+         asset_name: ${{ env.NOW }}-unstable.tar.gz
+         ag: ${{ env.NOW }}
+         prerelease: true
+         overwrite: true
+         body: "latest unstable iso"
