@@ -1,8 +1,8 @@
---- run_before_squashfs.sh	2022-10-23 17:16:39.031470707 +0200
-+++ run_before_squashfs-git.sh	2022-10-23 17:15:34.124369474 +0200
-@@ -94,6 +94,9 @@
- rm "/var/log/pacman.log"
- pacman -Scc --noconfirm
+--- run_before_squashfs.sh	2022-11-04 00:59:11.142857501 +0100
++++ run_before_squashfs.sh.patched	2022-11-04 01:00:19.426811571 +0100
+@@ -96,6 +96,9 @@
+ # the -Scc seem to fail so:
+ rm -rf "/var/cache/pacman/pkg/"
  
 +# remove github folder from GitHub action
 +rm -R /github
