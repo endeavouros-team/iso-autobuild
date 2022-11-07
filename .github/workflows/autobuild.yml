@@ -53,5 +53,5 @@ jobs:
          asset_name: ${{ env.NOW }}-unstable.tar.gz
          ag: ${{ env.NOW }}
          prerelease: true
-         overwrite: true
+         overwrite: false
          body: "latest unstable iso"
