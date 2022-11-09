@@ -51,7 +51,7 @@ jobs:
          repo_token: ${{ secrets.ACCESS_TOKEN }}
          file: EndeavourOS-ISO/out/unstable.tar.gz
          asset_name: ${{ env.NOW }}-unstable.tar.gz
-         ag: ${{ env.NOW }}
+         tag: ${{ env.NOW }}
          prerelease: true
          overwrite: false
          body: "latest unstable iso"
