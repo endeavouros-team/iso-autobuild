@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# clone ISO sources and joun the path:
+# clone ISO sources and join the path:
 git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 
 # patch packages to not install Calamares packages from repository:
@@ -38,8 +38,9 @@ get_pkg() {
 get_pkg "endeavouros-skel-xfce4"
 
 # current downgrade mesa for calamares lag in vms:
-wget https://archive.archlinux.org/packages/m/mesa/mesa-22.1.7-1-x86_64.pkg.tar.zst
-mv mesa-22.1.7-1-x86_64.pkg.tar.zst "airootfs/root/packages/"
+# test without to see if still needed (18.11.2022 joekamprad)
+# wget https://archive.archlinux.org/packages/m/mesa/mesa-22.1.7-1-x86_64.pkg.tar.zst
+# mv mesa-22.1.7-1-x86_64.pkg.tar.zst "airootfs/root/packages/"
 
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
