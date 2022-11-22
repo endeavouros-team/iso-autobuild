@@ -38,8 +38,8 @@ get_pkg() {
 get_pkg "endeavouros-skel-xfce4"
 
 # current downgrade mesa for calamares lag in vms:
-wget https://archive.archlinux.org/packages/m/mesa/mesa-21.3.7-2-x86_64.pkg.tar.zst
-mv mesa-21.3.7-2-x86_64.pkg.tar.zst "airootfs/root/packages/"
+wget https://archive.archlinux.org/packages/m/mesa/mesa-22.1.7-1-x86_64.pkg.tar.zst
+mv mesa-22.1.7-1-x86_64.pkg.tar.zst "airootfs/root/packages/"
 
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
