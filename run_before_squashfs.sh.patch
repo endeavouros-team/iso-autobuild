@@ -6,7 +6,7 @@
  
 +# remove github folder from GitHub action
 +rm -R /github
-+
++rm -R /home/build
  echo "############################"
  echo "# end chrooted commandlist #"
  echo "############################"
