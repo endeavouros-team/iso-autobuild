@@ -4,12 +4,8 @@
  yay
  
  ## Calamares EndeavourOS
--calamares_config_ce
--calamares_config_default
--calamares_current
-+#calamares_config_ce
-+#calamares_config_default
-+#calamares_current
+-calamares
++#calamares
  ckbcomp
  kvantum
  qt5ct
