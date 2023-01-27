@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # clone ISO sources and join the path:
-git clone https://github.com/killajoe/EndeavourOS-ISO.git
+git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 
 # patch packages to not install Calamares packages from repository:
 patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
