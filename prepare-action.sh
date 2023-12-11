@@ -35,7 +35,7 @@ get_pkg() {
     pacman -Syw "$1" --noconfirm --cachedir "airootfs/root/packages"
 }
 
-get_pkg "endeavouros-skel-xfce4"
+get_pkg "eos-settings-plasma"
 
 # current downgrade mesa for calamares lag in vms:
 # wget https://archive.archlinux.org/packages/m/mesa/mesa-22.1.7-1-x86_64.pkg.tar.zst
