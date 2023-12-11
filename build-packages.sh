@@ -6,9 +6,4 @@ useradd -m -G wheel -s /bin/bash build
 cd /home/build
 mkdir -p /home/build/packages
 chown -R build:build /home/build/packages
-su build
-git clone https://github.com/endeavouros-team/PKGBUILDS
-cd /home/build/PKGBUILDS/calamares-git
-makepkg -f -s
-cp *.pkg.tar.zst /home/build/packages/
-exit
+su build && git clone https://github.com/endeavouros-team/PKGBUILDS && cd /home/build/PKGBUILDS/calamares-git && makepkg -f -s && cp *.pkg.tar.zst /home/build/packages/ && exit
