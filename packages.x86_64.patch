@@ -1,9 +1,11 @@
---- packages.x86_64-source	2022-10-24 11:45:38.198205819 +0200
-+++ packages.x86_64	2022-10-24 11:43:48.624845812 +0200
-@@ -287,9 +287,9 @@
+--- packages.x86_64	2023-12-11 11:45:29.457274249 +0100
++++ packages.x86_64.patched	2023-12-11 11:47:27.089649001 +0100
+@@ -267,7 +267,7 @@
  yay
  
  ## Calamares EndeavourOS
 -calamares
 +#calamares
  ckbcomp
+ os-prober
+ 
