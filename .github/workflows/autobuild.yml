@@ -37,9 +37,12 @@ jobs:
         
       - name: Build ISO
         run: bash build.sh
-          
+
+      - name: Add hour to release and tarball
+        run: "cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/ && cd EndeavourOS-ISO/out && tar -czvf EndeavourOS-${{ env.NOW }}-iso.tar.gz *.sha512sum *.iso *.log"
+        
       - name: Upload a backup to server_DEVEL
-        run: "curl -g -k -T EndeavourOS-ISO/out/*.sha512sum -u ${{secrets.SERVER_STRING_DEVEL}} && curl -g -k -T EndeavourOS-ISO/out/*.iso -u ${{secrets.SERVER_STRING_DEVEL}}"
+        run: "curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u ${{secrets.SERVER_STRING_DEVEL}}"
         
       #- name: archive for release
       #  run: tar -czvf EndeavourOS-ISO/out/unstable.tar.gz EndeavourOS-ISO/out/*.sha512sum EndeavourOS-ISO/out/*.iso
