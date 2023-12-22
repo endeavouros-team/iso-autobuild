@@ -9,4 +9,4 @@ pacman-key --init
 pacman -Sy --noconfirm endeavouros-keyring 
 pacman -S --noconfirm endeavouros-mirrorlist
 pacman -S --noconfirm reflector 
-reflector --age 2 --number 23 --country DE,US,NL,PL --save /etc/pacman.d/mirrorlist
+reflector --age 2 --number 23 --country DE,US --save /etc/pacman.d/mirrorlist
