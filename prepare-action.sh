@@ -11,6 +11,9 @@ patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 # patch run_before_squashfs.sh to remove github folder before squashfs:
 # patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
 
+# patch mkarchiso for license package changes
+patch EndeavourOS-ISO/mkarchiso < mkarchiso.patch
+
 # copy live session Wallpaper into ISO structure:
 cp livewall.png EndeavourOS-ISO/airootfs/root/
 
