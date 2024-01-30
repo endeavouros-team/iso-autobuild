@@ -32,11 +32,13 @@ wget -qN --show-progress -P "airootfs/root/" "https://raw.githubusercontent.com/
 chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 
 # Build liveuser skel
-get_pkg() {
-    pacman -Syw "$1" --noconfirm --cachedir "airootfs/root/packages"
-}
+#get_pkg() {
+#    pacman -Syw "$1" --noconfirm --cachedir "airootfs/root/packages"
+#}
 
-get_pkg "eos-settings-plasma"
+#get_pkg "eos-settings-plasma"
+
+pacman -Syw --noconfirm --cachedir "airootfs/root/packages" eos-settings-plasma
 
 # current downgrade mesa for calamares lag in vms:
 # wget https://archive.archlinux.org/packages/m/mesa/mesa-22.1.7-1-x86_64.pkg.tar.zst
