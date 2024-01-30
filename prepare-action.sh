@@ -13,6 +13,7 @@ patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 
 # copy live session Wallpaper into ISO structure:
 cp livewall.png EndeavourOS-ISO/airootfs/root/
+cp  pacman.conf EndeavourOS-ISO/airootfs/etc/pacman.conf
 
 # run preperations inside ISO structure
 cd EndeavourOS-ISO
