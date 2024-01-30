@@ -6,7 +6,7 @@ git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 
 # patch profiledef.sh -- set isoname to unstable:
-patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
+#patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 
 # patch run_before_squashfs.sh to remove github folder before squashfs:
 # patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
@@ -18,7 +18,7 @@ cp livewall.png EndeavourOS-ISO/airootfs/root/
 cd EndeavourOS-ISO
 
 # Copy packages from Build Calamares git packages into iso structure:
-cp /home/build/packages/* airootfs/root/packages/
+#cp /home/build/packages/* airootfs/root/packages/
 
 # Get mirrorlist for offline installs
 mkdir "airootfs/etc/pacman.d"
