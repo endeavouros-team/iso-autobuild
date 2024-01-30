@@ -3,10 +3,10 @@
 git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 
 # patch packages to not install Calamares packages from repository:
-patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
+#patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 
 # patch profiledef.sh -- set isoname to unstable:
-#patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
+patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 
 # patch run_before_squashfs.sh to remove github folder before squashfs:
 # patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
