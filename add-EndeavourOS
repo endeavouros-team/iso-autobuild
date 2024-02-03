@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # setting up EndeavourOS repo:
 # try fix keyring issue 1.1.2024
