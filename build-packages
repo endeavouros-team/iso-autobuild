@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 # building calamares git packages:
 echo "%wheel         ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 #pacman -Syy
