@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 cd "EndeavourOS-ISO"
 ./mkarchiso -v "." 2>&1 | tee "eosiso_$(date -u +'%Y.%m.%d-%H:%M').log"
 ls out/ > /tmp/isoname
