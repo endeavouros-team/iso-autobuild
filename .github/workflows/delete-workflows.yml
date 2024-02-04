@@ -16,4 +16,4 @@ jobs:
             timed_out
             completed
           save_period: '06:00:00'
-          save_min_runs_number: 3
+          save_min_runs_number: 0
