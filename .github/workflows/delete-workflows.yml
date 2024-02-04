@@ -15,4 +15,4 @@ jobs:
             failure
             timed_out
           save_period: '06:00:00'
-          save_min_runs_number: 2
+          save_min_runs_number: 1
