@@ -10,8 +10,8 @@ jobs:
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
           repo: endeavouros-team/iso-autobuild
+          workflow_id: autobuild.yml 
           run_conclusions: |
            completed
            failure
-          save_period: 3
           save_min_runs_number: 3
