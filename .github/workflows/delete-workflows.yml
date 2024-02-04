@@ -1,0 +1,18 @@
+name: clean up workflows
+on:
+  workflow_dispatch:
+jobs:
+  delete_runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: dmvict/clean-workflow-runs@v1.0.0
+        with:
+          token: ${{ secrets.PRIVATE_GITHUB_TOKEN }}
+          run_conclusions: |
+            cancelled
+            skipped
+            failure
+            timed_out
+          save_period: '06:00:00'
+          save_min_runs_number: 2
