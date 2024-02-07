@@ -2,18 +2,19 @@
 # clone ISO sources and join the path:
 git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 
-# patch packages to not install Calamares packages from repository:
-#patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
+# patch packages install zram-generator for zram testing:
+patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 
 # patch profiledef.sh -- set isoname to unstable:
 patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 
-# patch run_before_squashfs.sh to remove github folder before squashfs:
-# patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
+# patch run_before_squashfs.sh adding zram service starter:
+patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
 
-# copy live session Wallpaper into ISO structure:
+# copy live session Wallpaper and files into ISO structure:
+cp zram-generator.conf EndeavourOS-ISO/airootfs/etc/systemd/zram-generator.conf
 cp livewall.png EndeavourOS-ISO/airootfs/root/
-cp  pacman.conf EndeavourOS-ISO/airootfs/etc/pacman.conf
+cp pacman.conf EndeavourOS-ISO/airootfs/etc/pacman.conf
 
 # run preperations inside ISO structure
 cd EndeavourOS-ISO
