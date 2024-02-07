@@ -1,0 +1,10 @@
+--- packages.x86_64	2024-02-07 22:30:50.021377271 +0100
++++ packages.x86_64.patched	2024-02-07 22:30:10.910945557 +0100
+@@ -187,6 +187,7 @@
+ mkinitcpio-nfs-utils
+ pv
+ syslinux
++zram-generator
+ 
+ ## Live iso tools
+ clonezilla
