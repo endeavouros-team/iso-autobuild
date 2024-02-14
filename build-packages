@@ -13,5 +13,4 @@ cd /home/build/PKGBUILDS/calamares-git
 sudo -u  build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
 rm -R /home/build/PKGBUILDS
-rm -R /home/build/.cache
 
