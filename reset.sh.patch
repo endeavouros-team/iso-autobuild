@@ -1,0 +1,13 @@
+--- reset.sh	2024-02-14 11:04:54.111569045 +0100
++++ reset.sh.patched	2024-02-14 11:05:11.881802778 +0100
+@@ -1,9 +1,8 @@
+ #!/bin/sh
+-rm -rf "work" "out"
++rm -rf "work"
+ rm airootfs/root/packages/*.pkg.tar.zst
+ rm airootfs/root/packages/*.pkg.tar.zst.sig
+ rm -rf airootfs/root/endeavouros-skel-liveuser/pkg
+ rm airootfs/root/endeavouros-wallpaper.png
+ rm airootfs/root/endeavouros-skel-liveuser/*.pkg.tar.zst
+ rm -rf airootfs/etc/pacman.d/
+-rm eosiso*.log
