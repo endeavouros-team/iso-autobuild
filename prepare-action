@@ -2,6 +2,9 @@
 # clone ISO sources and join the path:
 git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
 
+# patch reset.sh to run it for space saving before tarballing later:
+patch EndeavourOS-ISO/reset.sh < reset.sh.patch
+
 # patch packages install zram-generator for zram testing:
 patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 
