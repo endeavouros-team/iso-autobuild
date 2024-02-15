@@ -11,11 +11,7 @@ patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 # patch profiledef.sh -- set isoname to unstable:
 patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
 
-# patch run_before_squashfs.sh adding zram service starter:
-patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
-
 # copy live session Wallpaper and files into ISO structure:
-cp zram-generator.conf EndeavourOS-ISO/airootfs/etc/systemd/zram-generator.conf
 cp livewall.png EndeavourOS-ISO/airootfs/root/
 cp pacman.conf EndeavourOS-ISO/airootfs/etc/pacman.conf
 
