@@ -1,4 +1,4 @@
-name: Build EndeavourOS devel ISO
+name: Build EndeavourOS devel ISO (plasma6 testing version)
 
 on:
   schedule:
