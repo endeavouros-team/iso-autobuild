@@ -2,6 +2,7 @@
 
 # setting up EndeavourOS repo:
 # try fix keyring issue 1.1.2024
+cd /
 pacman-key --init && pacman -Syu --noconfirm && pacman -Syu base-devel --noconfirm
 pacman -Sy --noconfirm --needed archlinux-keyring wget
 wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/plasma6/airootfs/etc/pacman.conf
