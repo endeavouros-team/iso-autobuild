@@ -1,5 +1,5 @@
 --- PKGBUILD	2024-02-18 16:41:10.491640655 +0100
-+++ PKGBUILD.patched	2024-02-18 17:02:49.180671871 +0100
++++ PKGBUILD.patched	2024-02-18 19:05:38.578097333 +0100
 @@ -12,9 +12,9 @@
  license=('GPL3')
  makedepends=('git' 'cmake' 'extra-cmake-modules' 'python-jsonschema' 'python-pyaml' 'python-unidecode' 'gawk')
@@ -13,3 +13,11 @@
  provides=("calamares")
  options=(!strip !emptydirs)
  source=("git+https://github.com/endeavouros-team/$_reponame.git#branch=calamares")
+@@ -49,6 +49,7 @@
+     -DBoost_NO_BOOST_CMAKE=ON \
+     -DCMAKE_INSTALL_PREFIX=/usr \
+     -DINSTALL_CONFIG=OFF \
++    -WITH_QT6 \
+     -DSKIP_MODULES="dracut \
+     dummycpp dummyprocess dummypython dummypythonqt \
+     finishedq initcpio keyboardq license localeq notesqml oemid \
