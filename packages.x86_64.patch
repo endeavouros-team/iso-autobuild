@@ -1,13 +1,5 @@
 --- packages.x86_64	2024-02-13 23:37:31.767686063 +0100
 +++ packages.x86_64.patched	2024-02-13 23:40:47.919934559 +0100
-@@ -194,6 +194,7 @@
- grsync
- partitionmanager
- hdparm
-+zram-generator
- 
- # DESKTOP
- 
 @@ -266,7 +267,7 @@
  yay
  
