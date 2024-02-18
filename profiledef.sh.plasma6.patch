@@ -1,0 +1,15 @@
+--- profiledef.sh	2023-12-06 14:46:40.811869803 +0100
++++ profiledef.sh.patched	2023-12-11 11:56:23.523108289 +0100
+@@ -1,10 +1,10 @@
+ #!/usr/bin/env bash
+ # shellcheck disable=SC2034
+ 
+-iso_name="EndeavourOS_Galileo"
++iso_name="unstable-plasma6"
+ iso_label="EOS_$(date +%Y%m)"
+ iso_publisher="EndeavourOS <https://endeavouros.com>"
+-iso_application="EndeavourOS Live/Rescue CD"
++iso_application="EndeavourOS Development Live/Rescue CD"
+ iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
+ install_dir="arch"
+ buildmodes=('iso')
