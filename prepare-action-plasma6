@@ -9,7 +9,7 @@ patch EndeavourOS-ISO/reset.sh < reset.sh.patch
 patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 
 # patch profiledef.sh -- set isoname to unstable:
-patch EndeavourOS-ISO/profiledef.sh < profiledef-plasma6.sh.patch
+patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.plasma6.patch
 
 # copy live session Wallpaper and files into ISO structure:
 cp livewall.png EndeavourOS-ISO/airootfs/root/
