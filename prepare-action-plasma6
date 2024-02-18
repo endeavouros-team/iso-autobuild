@@ -12,7 +12,7 @@ patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
 patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.plasma6.patch
 
 # copy live session Wallpaper and files into ISO structure:
-cp livewall.png EndeavourOS-ISO/airootfs/root/
+cp livewall-plasma6.png EndeavourOS-ISO/airootfs/root/livewall.png
 cp pacman.conf EndeavourOS-ISO/airootfs/etc/pacman.conf
 
 # run preperations inside ISO structure
