@@ -1,0 +1,58 @@
+--- packagechooser.conf	2024-03-06 21:22:18.755893576 +0100
++++ packagechooser.conf.patched	2024-03-06 23:01:02.157216281 +0100
+@@ -106,38 +106,51 @@
+                 - eos-settings-plasma
+         packages:
+             - ark
++            - baloo-widgets
+             - bluedevil
+             - breeze-gtk
+             - dolphin
+             - dolphin-plugins
+             - ffmpegthumbs
++            - fwupd
+             - gwenview
+             - haruna
+-            - kcalc
+             - kate
++            - kcalc
++            - kde-gtk-config
++            - kde-inotify-survey
+             - kdeconnect
++            - kdegraphics-thumbnailers
++            - kdenetwork-filesharing
++            - kdepim-addons
+             - kdeplasma-addons
+-            - kde-gtk-config
+             - kgamma
+-            - khotkeys
+-            - kimageformats5
+             - kinfocenter
+             - kinit
++            - kio-admin
++            - kio-extras
+             - kio-fuse
++            - kio-gdrive
+             - konsole
+             - kscreen
+             - kwallet-pam
++            - libappindicator-gtk3
++            - maliit-keyboard
+             - okular
++            - plasma-browser-integration
+             - plasma-desktop
+             - plasma-disks
++            - plasma-firewall
+             - plasma-nm
+             - plasma-pa
+             - plasma-systemmonitor
++            - plasma-workspace
+             - powerdevil
+             - print-manager
+             - sddm-kcm
+             - spectacle
+             - xsettingsd
++            - xwaylandvideobridge
+ 
+     - id: GNOME-Desktop
+       name: "GNOME"
