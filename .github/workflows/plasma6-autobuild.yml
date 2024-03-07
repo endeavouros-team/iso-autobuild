@@ -29,7 +29,7 @@ jobs:
       - name: Update packages and install archiso
         run: "pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools wget sudo base-devel curl lftp"
         
-      - name: create normal user (build) for Build Calamares git packages and prepare actions
+      - name: create normal user (build) to create Calamares git package and prepare actions
         run: bash build-packages-plasma6
         
       - name: preparations to build ISO
