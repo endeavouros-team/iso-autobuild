@@ -8,6 +8,13 @@ patch EndeavourOS-ISO/reset.sh < reset.sh.patch
 # patch profiledef.sh -- set isoname to unstable:
 patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.plasma6.patch
 
+# patch run_before_squashfs.s to patch clamares before pushing changes:
+patch EndeavourOS-ISO/run_before_squashfs.sh < run_before_squashfs.sh.patch
+# get calamares patches in:
+wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/iso-autobuild/main/packagechooser.conf.patch"
+wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/" "https://github.com/endeavouros-team/iso-autobuild/blob/main/netinstall.yaml.patch"
+
+
 # copy live session Wallpaper and files into ISO structure:
 cp livewall-plasma6.png EndeavourOS-ISO/airootfs/root/livewall.png
 cp pacman.conf EndeavourOS-ISO/airootfs/etc/pacman.conf
@@ -24,6 +31,7 @@ wget -qN --show-progress -P "airootfs/etc/pacman.d/" "https://raw.githubusercont
 
 # Get wallpaper for installed system
 wget -qN --show-progress -P "airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
+
 
 # Make sure build scripts are executable
 chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
