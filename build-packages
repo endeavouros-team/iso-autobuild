@@ -7,12 +7,10 @@ pacman -S --noconfirm --needed git cmake extra-cmake-modules python-jsonschema p
 cd /home/build
 mkdir -p /home/build/packages
 chown -R build:build /home/build/packages
-#sudo -u  build git clone https://github.com/endeavouros-team/PKGBUILDS
-#cd /home/build/PKGBUILDS/calamares-git
 mkdir /home/build/calamares-git
 chown -R build:build /home/build/calamares-git
 cd /home/build/calamares-git
-sudo -u build wget https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/c7c02e307edda54ea72dd1655379efee00d0a314/calamares-git/PKGBUILD
+sudo -u build wget https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/master/calamares-git/PKGBUILD
 sudo -u  build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
 rm -R /home/build/calamares-git
