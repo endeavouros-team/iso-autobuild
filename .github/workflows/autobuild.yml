@@ -29,7 +29,7 @@ jobs:
       - name: Update packages and install archiso
         run: "pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools wget sudo base-devel curl lftp"
         
-      - name: create normal user (build) for Build Calamares git packages and prepare actions
+      - name: create normal user (build) to make Calamares git package and prepare actions
         run: bash build-packages
         
       - name: preparations to build ISO
@@ -38,7 +38,7 @@ jobs:
       - name: Build ISO
         run: bash build-iso
 
-      - name: Add hour to release and tarball
+      - name: Add hour to release and tarball relase files
         run: "cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/ && cd EndeavourOS-ISO/out && tar -czvf EndeavourOS-${{ env.NOW }}-devel-iso.tar.gz *.sha512sum *.iso *.log"
         
       - name: Upload a backup to server_DEVEL
