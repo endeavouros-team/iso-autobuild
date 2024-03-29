@@ -15,4 +15,8 @@ sudo -u build wget https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/
 sudo -u  build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
 rm -R /home/build/calamares-git
+echo "###### checking xz version in use ##########"
+xz -V
+echo "###### checking xz version in use end ##########"
+
 
