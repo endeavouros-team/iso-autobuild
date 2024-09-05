@@ -8,6 +8,14 @@ useradd -m -G wheel -s /bin/bash build
 cd /home/build
 mkdir -p /home/build/packages
 chown -R build:build /home/build/packages
+# build kpmcore-git for testing
+sudo -u build git clone https://aur.archlinux.org/kpmcore-git.git
+chown -R build:build /home/build/kpmcore-git
+cd /home/build/kpmcore-git
+sudo -u  build makepkg -f
+cp *.pkg.tar.zst /home/build/packages/
+rm -R /home/build/kpmcore-git
+# building latest calamares git version
 mkdir /home/build/calamares-git
 chown -R build:build /home/build/calamares-git
 cd /home/build/calamares-git
@@ -18,12 +26,3 @@ rm -R /home/build/calamares-git
 echo "###### checking xz version in use ##########"
 xz -V
 echo "###### checking xz version in use end ##########"
-# build kpmcore-git for testing
-sudo -u build git clone https://aur.archlinux.org/kpmcore-git.git
-chown -R build:build /home/build/kpmcore-git
-cd /home/build/kpmcore-git
-sudo -u  build makepkg -f
-cp *.pkg.tar.zst /home/build/packages/
-rm -R /home/build/kpmcore-git
-
-
