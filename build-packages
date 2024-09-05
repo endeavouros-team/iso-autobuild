@@ -13,6 +13,7 @@ sudo -u build git clone https://aur.archlinux.org/kpmcore-git.git
 chown -R build:build /home/build/kpmcore-git
 cd /home/build/kpmcore-git
 sudo -u  build makepkg -f
+pacman -U --noconfirm *.pkg.tar.zst
 cp *.pkg.tar.zst /home/build/packages/
 rm -R /home/build/kpmcore-git
 # building latest calamares git version
