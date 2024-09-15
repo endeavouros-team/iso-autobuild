@@ -34,10 +34,7 @@ wget -qN --show-progress -P "airootfs/root/" "https://raw.githubusercontent.com/
 chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 
 #get_pkg "eos-settings-plasma"
-mkdir "/usr/share/packages"
-pacman -Syddw --noconfirm --cachedir "/usr/share/packages" eos-settings-plasma
-cp -a "/usr/share/packages/*" "airootfs/root/packages/"
-ls "airootfs/root/packages/"
+mkdir "/tmp/packages" && pacman -Syw "$1" --noconfirm --cachedir "/tmp/packages" && sudo rsync -a "/tmp/packages/" "airootfs/root/packages/"
 
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
