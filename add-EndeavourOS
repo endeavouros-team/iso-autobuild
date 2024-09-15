@@ -17,3 +17,4 @@ pacman -Syy --noconfirm endeavouros-keyring
 pacman -S --noconfirm endeavouros-mirrorlist
 pacman -S --noconfirm reflector 
 reflector --age 2 --number 23 --save /etc/pacman.d/mirrorlist
+eos-rankmirrors —verbose —sort rate
