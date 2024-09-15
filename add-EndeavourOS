@@ -15,6 +15,6 @@ pacman-key --recv-key 497AF50C92AD2384C56E1ACA003DB8B0CB23504F --keyserver keyse
 pacman-key --init
 pacman -Syy --noconfirm endeavouros-keyring 
 pacman -S --noconfirm endeavouros-mirrorlist
-pacman -S --noconfirm reflector 
+pacman -S --noconfirm reflector eos-rankmirrors
 reflector --age 2 --number 23 --save /etc/pacman.d/mirrorlist
 eos-rankmirrors —verbose —sort rate
