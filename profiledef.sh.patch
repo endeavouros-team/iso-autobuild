@@ -1,5 +1,5 @@
---- profiledef.sh	2024-09-15 19:18:18.986318416 +0200
-+++ profiledef.sh.patched	2024-09-16 12:50:17.093598545 +0200
+--- profiledef.sh	2024-09-17 17:55:17.299743781 +0200
++++ profiledef.sh.patched	2024-09-17 17:55:27.707874900 +0200
 @@ -1,10 +1,10 @@
  #!/usr/bin/env bash
  # shellcheck disable=SC2034
@@ -13,12 +13,3 @@
  iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
  install_dir="arch"
  buildmodes=('iso')
-@@ -14,7 +14,7 @@
- bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito' 'uefi-x64.systemd-boot.esp' 'uefi-x64.systemd-boot.eltorito')
- 
- arch="x86_64"
--pacman_conf="airootfs/etc/pacman.conf"
-+pacman_conf="/etc/pacman.conf"
- airootfs_image_type="squashfs"
- airootfs_image_tool_options=('-comp' 'xz' '-Xbcj' 'x86' '-b' '1M' '-Xdict-size' '1M')
- file_permissions=(
