@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "### start building calamares git packages"
+echo "### start building calamares git package"
 echo "%wheel         ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 pacman -Syu
 pacman -S --noconfirm --needed git cmake extra-cmake-modules python-jsonschema python-pyaml python-unidecode gawk qt6-svg qt6-webengine yaml-cpp networkmanager upower kcoreaddons kconfig ki18n kservice kwidgetsaddons  squashfs-tools rsync pybind11 cryptsetup doxygen dmidecode gptfdisk hwinfo kparts polkit-qt6 python solid qt6-tools libpwquality ckbcomp qt6-declarative
