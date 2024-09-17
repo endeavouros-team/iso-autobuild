@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# building calamares git packages:
+echo "### start building calamares git packages"
 echo "%wheel         ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 pacman -Syu
 pacman -S --noconfirm --needed git cmake extra-cmake-modules python-jsonschema python-pyaml python-unidecode gawk qt6-svg qt6-webengine yaml-cpp networkmanager upower kcoreaddons kconfig ki18n kservice kwidgetsaddons  squashfs-tools rsync pybind11 cryptsetup doxygen dmidecode gptfdisk hwinfo kparts polkit-qt6 python solid qt6-tools libpwquality ckbcomp qt6-declarative
@@ -18,7 +18,4 @@ sudo -u build wget https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/
 sudo -u  build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
 rm -R /home/build/calamares-git
-echo "###### checking xz version in use ##########"
-xz -V
-echo "###### checking xz version in use end ##########"
-# end building calamares-git
+echo "### end building calamares-git"
