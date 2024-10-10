@@ -20,8 +20,9 @@ cp livewall.png EndeavourOS-ISO/airootfs/root/
 # run preperations inside ISO structure
 cd EndeavourOS-ISO
 
-# Copy packages from Build Calamares git packages into iso structure:
-cp /home/build/packages/* airootfs/root/packages/
+# Copy packages from Build Calamares git packages into ISO structure:
+cp "/tmp/kpmcore-24.05.2-1-x86_64.pkg.tar.zst" "airootfs/root/packages/"
+cp "/home/build/packages/*" "airootfs/root/packages/"
 
 # Get mirrorlist for offline installs
 mkdir "airootfs/etc/pacman.d"
