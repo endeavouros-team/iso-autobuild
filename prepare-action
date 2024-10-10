@@ -1,27 +1,26 @@
 #!/usr/bin/env bash
 # clone ISO sources and join the path:
-git clone https://github.com/endeavouros-team/EndeavourOS-ISO.git
+git clone "https://github.com/endeavouros-team/EndeavourOS-ISO.git"
 
 # fetch  package for testing [kpmcore] downgarding to 24.05.2-1 n this case:
 wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/packages/" "https://archive.archlinux.org/packages/k/kpmcore/kpmcore-24.05.2-1-x86_64.pkg.tar.zst"
 
 # patch reset.sh to run it for space saving before tarballing later:
-patch EndeavourOS-ISO/reset.sh < reset.sh.patch
+patch "EndeavourOS-ISO/reset.sh" < reset.sh.patch
 
 # patch packages:
-patch EndeavourOS-ISO/packages.x86_64 < packages.x86_64.patch
+patch "EndeavourOS-ISO/packages.x86_64" < packages.x86_64.patch
 
 # patch profiledef.sh -- set isoname to unstable:
-patch EndeavourOS-ISO/profiledef.sh < profiledef.sh.patch
+patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 
 # copy live session Wallpaper and files into ISO structure:
-cp livewall.png EndeavourOS-ISO/airootfs/root/
+cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # run preperations inside ISO structure
 cd EndeavourOS-ISO
 
 # Copy packages from Build Calamares git packages into ISO structure:
-cp "/tmp/kpmcore-24.05.2-1-x86_64.pkg.tar.zst" "airootfs/root/packages/"
 cp "/home/build/packages/*" "airootfs/root/packages/"
 
 # Get mirrorlist for offline installs
