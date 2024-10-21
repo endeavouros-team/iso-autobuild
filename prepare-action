@@ -3,7 +3,7 @@
 git clone "https://github.com/endeavouros-team/EndeavourOS-ISO.git"
 
 # fetch  package for testing [kpmcore] downgarding to 24.05.2-1 n this case:
-wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/packages/" "https://archive.archlinux.org/packages/k/kpmcore/kpmcore-24.05.2-1-x86_64.pkg.tar.zst"
+#wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/packages/" "https://archive.archlinux.org/packages/k/kpmcore/kpmcore-24.05.2-1-x86_64.pkg.tar.zst"
 
 # patch reset.sh to run it for space saving before tarballing later:
 patch "EndeavourOS-ISO/reset.sh" < reset.sh.patch
