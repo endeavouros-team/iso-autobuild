@@ -17,5 +17,6 @@ cd /home/build/calamares-git
 sudo -u build wget https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/master/calamares-git/PKGBUILD
 sudo -u  build makepkg -f
 cp *.pkg.tar.zst /home/build/packages/
+cd ..
 rm -R /home/build/calamares-git
 echo "### end building calamares-git"
