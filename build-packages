@@ -3,7 +3,7 @@
 echo "### start building calamares git package"
 echo "%wheel         ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 pacman -Syu
-pacman -S --noconfirm --needed git cmake extra-cmake-modules python-jsonschema python-pyaml python-unidecode gawk qt6-svg qt6-webengine yaml-cpp networkmanager upower kcoreaddons kconfig ki18n kservice kwidgetsaddons  squashfs-tools rsync pybind11 cryptsetup doxygen dmidecode gptfdisk hwinfo kparts polkit-qt6 python solid qt6-tools libpwquality ckbcomp qt6-declarative
+pacman -S --noconfirm --needed git cmake extra-cmake-modules python-jsonschema python-pyaml python-unidecode gawk qt6-svg qt6-webengine yaml-cpp networkmanager upower kcoreaddons kconfig ki18n kservice kpmcore kwidgetsaddons  squashfs-tools rsync pybind11 cryptsetup doxygen dmidecode gptfdisk hwinfo kparts polkit-qt6 python solid qt6-tools libpwquality ckbcomp qt6-declarative
 #wget -qN --show-progress -P "/tmp/" "https://archive.archlinux.org/packages/k/kpmcore/kpmcore-24.05.2-1-x86_64.pkg.tar.zst"
 #pacman -U --noconfirm "/tmp/kpmcore-24.05.2-1-x86_64.pkg.tar.zst"
 useradd -m -G wheel -s /bin/bash build
