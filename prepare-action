@@ -35,6 +35,10 @@ chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 
 #get_pkg "eos-settings-plasma"
 pacman -Syw --noconfirm --cachedir "airootfs/root/packages/" eos-settings-plasma
+echo "---- start list packages  airootfs/root/packages ----"
+ls "airootfs/root/packages/"
+echo "---- start list packages  airootfs/root/packages ----"
+
 
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
