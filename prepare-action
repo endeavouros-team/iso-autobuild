@@ -37,7 +37,7 @@ chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 echo "---- start list packages  before fetching eos-settings-plasma ----"
 ls "airootfs/root/packages/"
 echo "---- end list packages before ... ----"
-pacman -Syw "$1" --noconfirm --cachedir "airootfs/root/packages/" eos-settings-plasma
+pacman -Syw --noconfirm --cachedir "airootfs/root/packages/" eos-settings-plasma
 echo "---- start list packages  airootfs/root/packages ----"
 ls "airootfs/root/packages/"
 echo "---- end list packages  airootfs/root/packages ----"
