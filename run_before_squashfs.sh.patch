@@ -5,7 +5,7 @@
  rm -rf "/root/packages/"
  
 +# reinstall eos-settings-plasma for offline installs:
-+pacman -S eos-settings-plasma
++pacman -S --noconfirm eos-settings-plasma
 +
  # Enable systemd services
  # --> now in airootfs/etc/systemd/system/multi-user.target.wants
