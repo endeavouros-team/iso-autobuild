@@ -1,0 +1,11 @@
+--- netinstall.yaml	2024-12-08 19:12:47.367023774 +0100
++++ netinstall.yaml.patched	2024-12-08 19:12:23.346935149 +0100
+@@ -143,7 +143,7 @@
+   selected: true
+   critical: true
+   packages:
+-    - endeavouros-theming
++    - endeavouros-branding
+     - eos-apps-info
+     - eos-log-tool
+     - eos-packagelist
