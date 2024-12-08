@@ -21,7 +21,7 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # Copy patches to be used inside ISO build process
-cp packagechooser.conf.patch "/root/"
+cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
 
 # run preperations inside ISO structure
 cd EndeavourOS-ISO
