@@ -1,6 +1,15 @@
---- packages.x86_64	2024-02-13 23:37:31.767686063 +0100
-+++ packages.x86_64.patched	2024-02-13 23:40:47.919934559 +0100
-@@ -266,7 +267,7 @@
+--- packages.x86_64	2024-12-08 19:20:40.450927376 +0100
++++ packages.x86_64.patched	2024-12-08 19:21:15.894670389 +0100
+@@ -267,7 +267,7 @@
+ # ENDEAVOUROS REPO
+ 
+ ## General
+-endeavouros-theming
++endeavouros-branding
+ eos-apps-info
+ eos-hooks
+ eos-log-tool
+@@ -281,7 +281,7 @@
  yay
  
  ## Calamares EndeavourOS
@@ -8,3 +17,4 @@
 +#calamares
  ckbcomp
  os-prober
+ 
