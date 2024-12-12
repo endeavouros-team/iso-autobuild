@@ -1,5 +1,5 @@
---- packagechooser.conf	2024-12-07 20:35:49.908555932 +0100
-+++ packagechooser.conf.devel	2024-12-08 14:33:22.986879918 +0100
+--- packagechooser.conf	2024-12-12 23:30:23.101181235 +0100
++++ packagechooser.conf.devel	2024-12-12 23:28:48.043060994 +0100
 @@ -102,7 +102,7 @@
                description: "Unselect to install vanilla."
                selected: true
