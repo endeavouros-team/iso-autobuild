@@ -1,5 +1,14 @@
 --- packages.x86_64	2024-12-08 19:20:40.450927376 +0100
-+++ packages.x86_64.patched	2024-12-08 19:21:15.894670389 +0100
++++ packages.x86_64.patched	2024-12-12 20:25:47.908041712 +0100
+@@ -205,7 +205,7 @@
+ breeze-gtk
+ dolphin
+ dolphin-plugins
+-eos-plasma-sddm-config
++eos-breeze-sddm
+ ffmpegthumbs
+ fwupd
+ gwenview
 @@ -267,7 +267,7 @@
  # ENDEAVOUROS REPO
  
