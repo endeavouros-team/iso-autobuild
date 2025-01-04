@@ -1,6 +1,6 @@
 # ISO Development testing ISO`S
 
-[![Maintenance](https://img.shields.io/maintenance/yes/2024.svg)]()
+[![Maintenance](https://img.shields.io/maintenance/yes/2025.svg)]()
 
 [![Build EndeavourOS devel ISO](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/autobuild.yml/badge.svg)](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/autobuild.yml)
 
