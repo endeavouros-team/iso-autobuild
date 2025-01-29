@@ -1,56 +1,12 @@
---- packagechooser.conf	2024-12-12 23:30:23.101181235 +0100
-+++ packagechooser.conf.devel	2024-12-12 23:28:48.043060994 +0100
-@@ -102,7 +102,7 @@
-               description: "Unselect to install vanilla."
-               selected: true
-               packages:
--                - eos-plasma-sddm-config
-+                - eos-breeze-sddm
-                 - eos-settings-plasma
-         packages:
-             - ark
-@@ -196,7 +196,7 @@
-               selected: true
-               packages:
-                 - arc-gtk-theme-eos
--                - eos-settings-gnome
-+                - eos-settings-gnome-devel
-                 - eos-qogir-icons
-         packages:
-             - adwaita-icon-theme
-@@ -280,7 +280,7 @@
+--- packagechooser.conf	2025-01-29 21:00:07.086161610 +0100
++++ packagechooser.conf.patched	2025-01-29 21:02:35.526871886 +0100
+@@ -281,7 +281,8 @@
                  - arc-gtk-theme-eos
                  - eos-lightdm-slick-theme
                  - eos-qogir-icons
 -                - eos-settings-xfce4
 +                - eos-settings-xfce4-devel
++                - eos-xfce-tweaks-devel
                  - endeavouros-xfce4-terminal-colors
          packages:
              - blueman
-@@ -363,7 +363,7 @@
-                 - arc-gtk-theme-eos
-                 - eos-lightdm-slick-theme
-                 - eos-qogir-icons
--                - eos-settings-cinnamon
-+                - eos-settings-cinnamon-devel
-         packages:
-             - cinnamon
-             - cinnamon-translations
-@@ -433,7 +433,7 @@
-             selected: true
-             packages:
-                 - arc-gtk-theme-eos
--                - eos-settings-mate
-+                - eos-settings-mate-devel
-                 - eos-lightdm-slick-theme
-                 - eos-qogir-icons
-         packages:
-@@ -495,7 +495,7 @@
-               selected: true
-               packages:
-                 - arc-gtk-theme-eos
--                - eos-settings-budgie
-+                - eos-settings-budgie-devel
-                 - eos-lightdm-slick-theme
-                 - eos-qogir-icons
-         packages:

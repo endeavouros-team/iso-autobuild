@@ -9,7 +9,6 @@
 +
 +# patch calamares configs on the run without rebuilding
 +patch "/etc/calamares/modules/packagechooser.conf" < /root/packagechooser.conf.patch
-+patch "/etc/calamares/modules/netinstall.yaml" < /root/netinstall.yaml.patch
 +
 +
  # Enable systemd services
