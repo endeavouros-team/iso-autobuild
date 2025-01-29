@@ -15,5 +15,5 @@ jobs:
             git@gitlab.com:endeavouros-filemirror/iso-autobuild.git
           ssh_private_key:
             ${{ secrets.GITLAB_SYNC }}
-            - name: Debug Push Failure
+        - name: Debug Push Failure
            run: git push gitlab main || git log -p -1 && exit 1
