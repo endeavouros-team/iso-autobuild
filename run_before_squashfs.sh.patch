@@ -1,15 +1,11 @@
---- run_before_squashfs.sh	2024-12-07 23:14:35.253278122 +0100
-+++ run_before_squashfs.sh.patched	2024-12-12 10:36:08.702639554 +0100
-@@ -69,6 +69,14 @@
- pacman -U --noconfirm --needed -- "/root/packages/"*".pkg.tar.zst"
- rm -rf "/root/packages/"
+--- run_before_squashfs.sh	2025-01-29 23:05:28.582104611 +0100
++++ run_before_squashfs.sh.patched	2025-01-29 23:07:29.115701215 +0100
+@@ -75,6 +75,9 @@
+ # reinstall eos-settings-plasma for offline installs:
+ pacman -S --noconfirm eos-settings-plasma
  
-+# reinstall eos-settings-plasma for offline installs:
-+pacman -S --noconfirm eos-settings-plasma
-+
 +# patch calamares configs on the run without rebuilding
 +patch "/etc/calamares/modules/packagechooser.conf" < /root/packagechooser.conf.patch
-+
 +
  # Enable systemd services
  # --> now in airootfs/etc/systemd/system/multi-user.target.wants
