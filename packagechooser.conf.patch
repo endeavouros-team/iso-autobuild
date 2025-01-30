@@ -1,12 +1,11 @@
---- packagechooser.conf	2025-01-29 21:00:07.086161610 +0100
-+++ packagechooser.conf.patched	2025-01-29 21:02:35.526871886 +0100
-@@ -281,7 +281,8 @@
+--- packagechooser.conf	2025-01-18 16:46:01.854790368 +0100
++++ packagechooser.conf.patched	2025-01-30 21:57:04.755453791 +0100
+@@ -281,7 +281,7 @@
                  - arc-gtk-theme-eos
                  - eos-lightdm-slick-theme
                  - eos-qogir-icons
 -                - eos-settings-xfce4
 +                - eos-settings-xfce4-devel
-+                - eos-xfce-tweaks-devel
                  - endeavouros-xfce4-terminal-colors
          packages:
              - blueman
