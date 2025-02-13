@@ -4,7 +4,7 @@
  #!/usr/bin/env bash
  # shellcheck disable=SC2034
  
--iso_name="EndeavourOS_Endeavour"
+-iso_name="EndeavourOS_Mercury"
 +iso_name="unstable"
  iso_label="EOS_$(date +%Y%m)"
  iso_publisher="EndeavourOS <https://endeavouros.com>"
