@@ -9,7 +9,7 @@ git clone "https://github.com/endeavouros-team/EndeavourOS-ISO.git"
 patch "EndeavourOS-ISO/reset.sh" < reset.sh.patch
 
 # patch rbs:
-patch "EndeavourOS-ISO/run_before_squashfs.sh" < run_before_squashfs.sh.patch
+#patch "EndeavourOS-ISO/run_before_squashfs.sh" < run_before_squashfs.sh.patch
 
 # patch packages:
 patch "EndeavourOS-ISO/packages.x86_64" < packages.x86_64.patch
@@ -21,7 +21,7 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # Copy patches to be used inside ISO build process
-cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
+#cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
 #cp netinstall.yaml.patch "EndeavourOS-ISO/airootfs/root/"
 
 # run preperations inside ISO structure
