@@ -1,0 +1,11 @@
+--- run_before_squashfs.sh	2025-02-13 20:51:54.885342244 +0100
++++ run_before_squashfs.sh.patched	2025-02-13 20:52:41.857337213 +0100
+@@ -72,6 +72,8 @@
+ echo "----- end of content of /root/packages -----"
+ pacman -U --noconfirm --needed -- "/root/packages/"*".pkg.tar.zst"
+ rm -rf "/root/packages/"
++# reinstall eos-settings-plasma for offline installs:
++pacman -S --noconfirm eos-settings-plasma
+ 
+ # Enable systemd services
+ # --> now in airootfs/etc/systemd/system/multi-user.target.wants
