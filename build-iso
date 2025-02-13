@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-
 cd "EndeavourOS-ISO"
-./mkarchiso -v "." 2>&1 | tee "eosiso_$(date -u +'%Y.%m.%d-%H:%M').log"
-./reset.sh
+./mkarchiso -v "." 2>&1 | tee "eosiso.log"
 ls out/ > /tmp/isoname
+cp eosiso.log out/
+./reset.sh
 cd out/
 isoname=$(cat /tmp/isoname)
 sha512sum $isoname > $isoname.sha512sum

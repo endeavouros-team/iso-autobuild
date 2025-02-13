@@ -20,20 +20,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Set current date and hour as environment variable
-        run: echo "NOW=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_ENV
+      - name: Set current date as environment variable
+        run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
                       
       - name: Add EndeavourOS Repo
         run: bash add-EndeavourOS
-        
-      - name: Update packages and install archiso
-        run: "pacman -Syu --noconfirm --needed archiso mkinitcpio-archiso git squashfs-tools wget sudo base-devel curl lftp"
         
       - name: create normal user (build) to build packages
         run: bash build-packages
         
       - name: preparations to build ISO
-        run: bash prepare-action 
+        run: bash prepare-action
         
       - name: Build ISO
         run: bash build-iso

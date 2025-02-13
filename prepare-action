@@ -2,13 +2,9 @@
 # clone ISO sources and join the path:
 git clone "https://github.com/endeavouros-team/EndeavourOS-ISO.git"
 
-# fetch  package for testing [kpmcore] downgarding to 24.05.2-1 n this case:
-#wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/packages/" "https://archive.archlinux.org/packages/k/kpmcore/kpmcore-24.05.2-1-x86_64.pkg.tar.zst"
-
 # patch reset.sh to run it for space saving before tarballing later:
 patch "EndeavourOS-ISO/reset.sh" < reset.sh.patch
 
-# patch rbs:
 #patch "EndeavourOS-ISO/run_before_squashfs.sh" < run_before_squashfs.sh.patch
 
 # patch packages:
@@ -22,10 +18,12 @@ cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # Copy patches to be used inside ISO build process
 #cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
-#cp netinstall.yaml.patch "EndeavourOS-ISO/airootfs/root/"
 
 # run preperations inside ISO structure
 cd EndeavourOS-ISO
+
+# Make sure build scripts are executable
+chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 
 # Copy packages from Build Calamares git packages into ISO structure:
 cp /home/build/packages/* airootfs/root/packages/
@@ -37,14 +35,7 @@ wget -qN --show-progress -P "airootfs/etc/pacman.d/" "https://raw.githubusercont
 # Get wallpaper for installed system
 wget -qN --show-progress -P "airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
 
-# Make sure build scripts are executable
-chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
-
-#get_pkg "eos-settings-plasma"
-#pacman -Syw --noconfirm --cachedir "airootfs/root/packages/" eos-settings-plasma
-# failing now on autobuilder, it is fetching all dependencies in too. 
-
-
+# Build liveuser skel
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
 sudo -u build makepkg -f
