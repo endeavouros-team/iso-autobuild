@@ -40,10 +40,10 @@ jobs:
         
       - name: Upload server_DEVEL
         run: "curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u ${{secrets.SERVER_STRING_DEVEL}}"
-        
+      
       #- name: archive for release
       #  run: tar -czvf EndeavourOS-ISO/out/unstable.tar.gz EndeavourOS-ISO/out/*.sha512sum EndeavourOS-ISO/out/*.iso
-    
+     
       #- name: Upload binaries to release
       #  uses: svenstaro/upload-release-action@v2
       #  with:
