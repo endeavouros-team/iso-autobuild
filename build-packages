@@ -22,4 +22,5 @@ echo "---- end list packages  /home/build/calamares-git ----"
 cp *.pkg.tar.zst /home/build/packages/
 cd ..
 rm -R /home/build/calamares-git
+sudo rm -rf /var/cache/pacman/pkg/*
 echo "### end building calamares-git"
