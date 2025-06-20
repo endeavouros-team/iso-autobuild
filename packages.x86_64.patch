@@ -1,6 +1,6 @@
---- packages.x86_64	2025-06-20 21:02:29.841384724 +0200
-+++ packages.x86_64.patched	2025-06-20 21:03:09.170853253 +0200
-@@ -280,7 +280,7 @@
+--- packages.x86_64	2025-06-20 23:09:28.233624797 +0200
++++ packages.x86_64.patched	2025-06-20 23:09:56.394988050 +0200
+@@ -282,7 +282,7 @@
  yay
  
  ## Calamares EndeavourOS
@@ -8,11 +8,3 @@
 +#calamares
  ckbcomp
  os-prober
- 
-@@ -298,5 +298,4 @@
- ## VMware
- open-vm-tools
- xf86-input-vmmouse
--xf86-video-vmware
- xf86-video-qxl
- 
