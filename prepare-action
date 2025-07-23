@@ -17,15 +17,15 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # add date to wallpaper
-mv airootfs/root/livewall.png airootfs/root/livewall-original.png
+mv EndeavourOS-ISO/airootfs/root/livewall.png EndeavourOS-ISO/airootfs/root/livewall-original.png
 
-magick airootfs/root/livewall-original.png \
+magick EndeavourOS-ISO/airootfs/root/livewall-original.png \
   -gravity NorthEast \
   -pointsize 24 \
   -fill white \
   -font "DejaVu-Sans" \
   -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
-  airootfs/root/livewall.png
+  EndeavourOS-ISO/airootfs/root/livewall.png
 
 
 # Copy patches to be used inside ISO build process
