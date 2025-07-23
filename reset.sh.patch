@@ -1,13 +1,15 @@
---- reset.sh	2025-01-29 20:55:44.639558161 +0100
-+++ reset.sh.patched	2025-02-13 19:09:17.177001785 +0100
-@@ -1,9 +1,7 @@
+--- reset.sh	2025-07-23 21:16:30.195546913 +0200
++++ reset.sh.patched	2025-07-23 21:18:25.638038915 +0200
+@@ -1,9 +1,10 @@
  #!/bin/sh
 -rm -rf "work" "out"
 +rm -rf "work"
++mv airootfs/root/livewall-original.png airootfs/root/livewall.png
  rm airootfs/root/packages/*.pkg.tar.zst
--rm airootfs/root/packages/*.pkg.tar.zst.sig
+ rm airootfs/root/packages/*.pkg.tar.zst.sig
  rm -rf airootfs/root/endeavouros-skel-liveuser/pkg
  rm airootfs/root/endeavouros-wallpaper.png
  rm airootfs/root/endeavouros-skel-liveuser/*.pkg.tar.zst
  rm -rf airootfs/etc/pacman.d/
 -rm eosiso*.log
++
