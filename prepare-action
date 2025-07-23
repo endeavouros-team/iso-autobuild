@@ -19,6 +19,18 @@ patch "EndeavourOS-ISO/prepare.sh" < prepare.sh.patch
 # copy live session Wallpaper and files into ISO structure:
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
+# add date to wallpaper
+mv airootfs/root/livewall.png airootfs/root/livewall-original.png
+
+magick airootfs/root/livewall-original.png \
+  -gravity NorthEast \
+  -pointsize 24 \
+  -fill white \
+  -font "DejaVu-Sans" \
+  -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
+  airootfs/root/livewall.png
+
+
 # Copy patches to be used inside ISO build process
 #cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
 
