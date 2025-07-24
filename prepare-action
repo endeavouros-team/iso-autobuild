@@ -2,9 +2,6 @@
 # clone ISO sources and join the path:
 git clone "https://github.com/endeavouros-team/EndeavourOS-ISO.git"
 
-# patch reset.sh to run it for space saving before tarballing later:
-patch "EndeavourOS-ISO/reset.sh" < reset.sh.patch
-
 patch "EndeavourOS-ISO/run_before_squashfs.sh" < run_before_squashfs.sh.patch
 
 # patch packages:
@@ -15,6 +12,19 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 
 # copy live session Wallpaper and files into ISO structure:
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
+
+
+# Copy packages from Build Calamares git packages into ISO structure:
+cp "/home/build/packages/*" "EndeavourOS-ISO/airootfs/root/packages/"
+ls "EndeavourOS-ISO/airootfs/root/packages/"
+
+# Get mirrorlist for offline installs
+mkdir "airootfs/etc/pacman.d"
+wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/etc/pacman.d/" "https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/mirrorlist"
+
+# Get wallpaper for installed system
+wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
+ls "airootfs/root/"
 
 # add date to wallpaper
 
@@ -32,23 +42,11 @@ ls "EndeavourOS-ISO/airootfs/root/"
 # Copy patches to be used inside ISO build process
 #cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
 
-# run preperations inside ISO structure
+# run preparations inside ISO structure
 cd EndeavourOS-ISO
 
 # Make sure build scripts are executable
 chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
-
-# Copy packages from Build Calamares git packages into ISO structure:
-cp "/home/build/packages/*" "airootfs/root/packages/"
-ls "airootfs/root/packages/"
-
-# Get mirrorlist for offline installs
-mkdir "airootfs/etc/pacman.d"
-wget -qN --show-progress -P "airootfs/etc/pacman.d/" "https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/mirrorlist"
-
-# Get wallpaper for installed system
-wget -qN --show-progress -P "airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
-ls "airootfs/root/"
 
 # Build liveuser skel
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
