@@ -27,6 +27,8 @@ magick EndeavourOS-ISO/airootfs/root/livewall-original.png \
   -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
   EndeavourOS-ISO/airootfs/root/livewall.png
 
+# check root files
+ls EndeavourOS-ISO/airootfs/root/
 
 # Copy patches to be used inside ISO build process
 #cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
