@@ -35,7 +35,7 @@ magick "EndeavourOS-ISO/airootfs/root/livewall.png" \
   -gravity NorthEast \
   -pointsize 24 \
   -fill white \
-  -font "Noto-Sans" \
+  -font "Monospace" \
   -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
   "EndeavourOS-ISO/airootfs/root/livewall.png"
 
