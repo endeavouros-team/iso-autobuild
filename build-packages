@@ -20,7 +20,7 @@ echo "---- end list packages  /home/build/calamares-git ----"
 cp *.pkg.tar.zst /home/build/packages/
 echo "---- start list packages  /home/build/packages/ ----"
 ls "/home/build/packages/"
-echo "---- end list packages  /home/build/packages/t ----"
+echo "---- end list packages  /home/build/packages/ ----"
 cd ..
 rm -R /home/build/calamares-git
 sudo rm -rf /var/cache/pacman/pkg/*
