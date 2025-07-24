@@ -48,6 +48,7 @@ wget -qN --show-progress -P "airootfs/etc/pacman.d/" "https://raw.githubusercont
 
 # Get wallpaper for installed system
 wget -qN --show-progress -P "airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
+ls "airootfs/root/"
 
 # Build liveuser skel
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
