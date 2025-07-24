@@ -17,13 +17,12 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # add date to wallpaper
-mv "EndeavourOS-ISO/airootfs/root/livewall.png" "EndeavourOS-ISO/airootfs/root/livewall-original.png"
 
-magick "EndeavourOS-ISO/airootfs/root/livewall-original.png" \
+magick "EndeavourOS-ISO/airootfs/root/livewall.png" \
   -gravity NorthEast \
   -pointsize 24 \
   -fill white \
-  -font "DejaVu-Sans" \
+  -font "Noto-Sans" \
   -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
   "EndeavourOS-ISO/airootfs/root/livewall.png"
 
@@ -41,6 +40,7 @@ chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 
 # Copy packages from Build Calamares git packages into ISO structure:
 cp "/home/build/packages/*" "airootfs/root/packages/"
+ls "airootfs/root/packages/"
 
 # Get mirrorlist for offline installs
 mkdir "airootfs/etc/pacman.d"
