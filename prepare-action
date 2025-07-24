@@ -30,12 +30,14 @@ echo "---check if files exist end---"
 
 
 # add date to wallpaper
-
+echo "--magick font list--"
+magick -list font | grep -i FONT:
+echo "--magick font list end--"
 magick "EndeavourOS-ISO/airootfs/root/livewall.png" \
   -gravity NorthEast \
   -pointsize 24 \
   -fill white \
-  -font "Monospace" \
+  -font "Liberation-Mono" \
   -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
   "EndeavourOS-ISO/airootfs/root/livewall.png"
 
