@@ -23,7 +23,7 @@ mkdir "EndeavourOS-ISO/airootfs/etc/pacman.d"
 wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/etc/pacman.d/" "https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/mirrorlist"
 
 # Get wallpaper for installed system
-wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
+wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/Branding/refs/heads/main/backgrounds/endeavouros-wallpaper.png"
 echo "---check if files exist under EndeavourOS-ISO/airootfs/root/---"
 ls "EndeavourOS-ISO/airootfs/root/"
 echo "---check if files exist end---"
