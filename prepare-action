@@ -15,7 +15,7 @@ cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 
 # Copy packages from Build Calamares git packages into ISO structure:
-cp "/home/build/packages/*" "EndeavourOS-ISO/airootfs/root/packages/"
+cp /home/build/packages/* "EndeavourOS-ISO/airootfs/root/packages/"
 ls "EndeavourOS-ISO/airootfs/root/packages/"
 
 # Get mirrorlist for offline installs
