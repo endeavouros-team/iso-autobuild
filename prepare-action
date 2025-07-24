@@ -24,7 +24,10 @@ wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/etc/pacman.d/" "https://ra
 
 # Get wallpaper for installed system
 wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/root/" "https://raw.githubusercontent.com/endeavouros-team/endeavouros-theming/master/backgrounds/endeavouros-wallpaper.png"
-ls "airootfs/root/"
+echo "---check if files exist under EndeavourOS-ISO/airootfs/root/---"
+ls "EndeavourOS-ISO/airootfs/root/"
+echo "---check if files exist end---"
+
 
 # add date to wallpaper
 
@@ -36,8 +39,9 @@ magick "EndeavourOS-ISO/airootfs/root/livewall.png" \
   -annotate +10+10 "$(date '+%Y-%m-%d %H:%M:%S')" \
   "EndeavourOS-ISO/airootfs/root/livewall.png"
 
-# check root files
+echo "---check root files start---"
 ls "EndeavourOS-ISO/airootfs/root/"
+echo "---check root files end---"
 
 # Copy patches to be used inside ISO build process
 #cp packagechooser.conf.patch "EndeavourOS-ISO/airootfs/root/"
