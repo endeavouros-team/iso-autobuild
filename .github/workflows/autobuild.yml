@@ -32,20 +32,6 @@ jobs:
       - name: preparations to build ISO
         run: bash prepare-action
 
-      # >>>>>>> NEU: Immer neuestes Calamares Paket holen <<<<<<<
-      - name: Download latest release asset
-        id: get_calamares_url
-        run: |
-          LATEST_URL=$(curl -s https://api.github.com/repos/endeavouros-team/calamares-devel-package/releases/tags/latest \
-            | jq -r '.assets[] | select(.name | test("calamares-git-latest-any.pkg.tar.zst")) | .browser_download_url')
-          echo "LATEST_URL=$LATEST_URL" >> $GITHUB_ENV
-
-      - name: Download Calamares package
-        run: |
-          mkdir -p EndeavourOS-ISO/airootfs/root/packages
-          wget -q "$LATEST_URL" -O EndeavourOS-ISO/airootfs/root/packages/calamares-latest.pkg.tar.zst
-      # >>>>>>> ENDE NEU <<<<<<<
-
       - name: Build ISO
         run: bash build-iso
 
