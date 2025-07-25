@@ -33,25 +33,16 @@ jobs:
         run: bash prepare-action
 
 # >>>>>>> NEU: Immer neuestes Calamares Paket holen <<<<<<<
-      - name: Get latest Calamares package URL
-        id: get_calamares
-        env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download latest release asset
         run: |
-          pacman -Sy --noconfirm jq curl wget
-          url=$(curl -s -H "Authorization: token $TOKEN_GITHUB" \
-          https://api.github.com/repos/endeavouros-team/calamares-devel-package/releases \
-          | jq -r '.[0].assets[]? | select(.name | endswith(".pkg.tar.zst")) | .browser_download_url')
-          if [ -z "$url" ] || [ "$url" = "null" ]; then
-            echo "No valid Calamares package found!" >&2
-            exit 1
-          fi
-          echo "CALAMARES_URL=$url" >> $GITHUB_ENV
-
-      - name: Download Calamares package
-        run: |
+         LATEST_URL=$(curl -s https://api.github.com/repos/endeavouros-team/calamares-devel-package/releases/tags/latest \
+         | jq -r '.assets[] | select(.name | test("calamares-git-latest-any.pkg.tar.zst")) | .browser_download_url')
+         curl -L -o calamares-git-latest-any.pkg.tar.zst "$LATEST_URL"
+    
+    - name: Download Calamares package
+      run: |
           mkdir -p EndeavourOS-ISO/airootfs/root/packages
-          wget -q "$CALAMARES_URL" -O EndeavourOS-ISO/airootfs/root/packages/calamares-latest.pkg.tar.zst
+          wget -q "$LATEST_URL" -O EndeavourOS-ISO/airootfs/root/packages/calamares-latest.pkg.tar.zst
 
 # >>>>>>> ENDE NEU <<<<<<<
 
