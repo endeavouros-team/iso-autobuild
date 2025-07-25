@@ -18,7 +18,7 @@ cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 #ls "EndeavourOS-ISO/airootfs/root/packages/"
 
 # Get latest calamares devel package
-mkdir -p "EndeavourOS-ISO/airootfs/root/packages/"
+mkdir -p "EndeavourOS-ISO/airootfs/root/packages"
 wget -P "EndeavourOS-ISO/airootfs/root/packages/" "https://github.com/endeavouros-team/calamares-devel-package/releases/download/latest/calamares-git-latest-any.pkg.tar.zst"
 
 # Get mirrorlist for offline installs
