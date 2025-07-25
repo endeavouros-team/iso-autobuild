@@ -1,8 +1,11 @@
 name: Build EndeavourOS devel ISO
 
+#on:
+#  schedule:
+#    - cron: '0 9 * * *'
 on:
-  schedule:
-    - cron: '0 9 * * *'
+  repository_dispatch:
+    types: [calamares-done]
   workflow_dispatch:
 
 jobs:
