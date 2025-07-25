@@ -2,7 +2,7 @@ name: Build EndeavourOS devel ISO
 
 on:
   schedule:
-    - cron: "0 14 * * 1"
+    - cron: '0 10,15,20 * * *'
   workflow_dispatch:
 
 jobs:
