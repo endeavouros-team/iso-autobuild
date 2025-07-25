@@ -19,41 +19,45 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Set current date as environment variable
         run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
-                      
+
       - name: Add EndeavourOS Repo
         run: bash add-EndeavourOS
-        
-      #- name: create normal user (build) to build packages
-        #run: bash build-packages
-        
+
+      # - name: create normal user (build) to build packages
+      #   run: bash build-packages
+
       - name: preparations to build ISO
         run: bash prepare-action
 
-# >>>>>>> NEU: Immer neuestes Calamares Paket holen <<<<<<<
+      # >>>>>>> NEU: Immer neuestes Calamares Paket holen <<<<<<<
       - name: Download latest release asset
+        id: get_calamares_url
         run: |
-         LATEST_URL=$(curl -s https://api.github.com/repos/endeavouros-team/calamares-devel-package/releases/tags/latest \
-         | jq -r '.assets[] | select(.name | test("calamares-git-latest-any.pkg.tar.zst")) | .browser_download_url')
-         curl -L -o calamares-git-latest-any.pkg.tar.zst "$LATEST_URL"
-    
-    - name: Download Calamares package
-      run: |
+          LATEST_URL=$(curl -s https://api.github.com/repos/endeavouros-team/calamares-devel-package/releases/tags/latest \
+            | jq -r '.assets[] | select(.name | test("calamares-git-latest-any.pkg.tar.zst")) | .browser_download_url')
+          echo "LATEST_URL=$LATEST_URL" >> $GITHUB_ENV
+
+      - name: Download Calamares package
+        run: |
           mkdir -p EndeavourOS-ISO/airootfs/root/packages
           wget -q "$LATEST_URL" -O EndeavourOS-ISO/airootfs/root/packages/calamares-latest.pkg.tar.zst
-
-# >>>>>>> ENDE NEU <<<<<<<
+      # >>>>>>> ENDE NEU <<<<<<<
 
       - name: Build ISO
         run: bash build-iso
-      
+
       - name: cleanup space
         run: bash cleanup.sh
-      
+
       - name: tarball release files
-        run: "cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/ && cd EndeavourOS-ISO/out && tar -czvf EndeavourOS-${{ env.NOW }}-devel-iso.tar.gz *.sha512sum *.iso *.log"
-        
+        run: |
+          cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/
+          cd EndeavourOS-ISO/out
+          tar -czvf EndeavourOS-${{ env.NOW }}-devel-iso.tar.gz *.sha512sum *.iso *.log
+
       - name: Upload server_DEVEL
-        run: "curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u ${{secrets.SERVER_STRING_DEVEL}}"
+        run: |
+          curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u ${{ secrets.SERVER_STRING_DEVEL }}
