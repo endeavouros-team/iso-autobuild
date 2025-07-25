@@ -55,6 +55,9 @@ cd EndeavourOS-ISO
 chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 
 # Build liveuser skel
+echo "%wheel         ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+pacman -Syu
+useradd -m -G wheel -s /bin/bash build
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
 sudo -u build makepkg -f
