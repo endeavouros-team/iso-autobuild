@@ -24,7 +24,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set current date as environment variable
-        run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+        run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+
+      - name: Set current time as environment variable
+        run: echo "TIME=$(date +'%d-%H')" >> $GITHUB_ENV
 
       - name: Add EndeavourOS Repo
         run: bash add-EndeavourOS
@@ -45,7 +48,7 @@ jobs:
         run: |
           cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/
           cd EndeavourOS-ISO/out
-          tar -czvf EndeavourOS-${{ env.NOW }}-devel-iso.tar.gz *.sha512sum *.iso *.log
+          tar -czvf EndeavourOS-${{ env.DATE }}-${{ env.TIME }}-devel-iso.tar.gz *.sha512sum *.iso *.log
 
       - name: Upload server_DEVEL
         run: |
