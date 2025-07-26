@@ -27,7 +27,7 @@ jobs:
         run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
 
       - name: Set current time as environment variable
-        run: echo "TIME=$(date +'%d-%H')" >> $GITHUB_ENV
+        run: echo "TIME=$(date +'%H-%M')" >> $GITHUB_ENV
 
       - name: Add EndeavourOS Repo
         run: bash add-EndeavourOS
