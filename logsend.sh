@@ -80,7 +80,11 @@ log_file_if_exists "Broadcom WL WiFi Activation Log" "$HOME_DIR/broadcom-wl-wifi
 log_section "PCI Devices (lspci -vnn)" "lspci -vnn"
 
 # 7. Gather installer log
-log_file_if_exists "EndeavourOS Installer Log" "/var/log/endeavour-install.log"
+if [[ -f "/var/log/endeavour-install.log" ]]; then
+    log_file_if_exists "EndeavourOS Installer Log" "/var/log/endeavour-install.log"
+else
+    log_file_if_exists "EndeavourOS failed install log" "$HOME/endeavour-install.log"
+fi
 
 echo "Collection complete. Copying log to $HOME_DIR and sending..."
 
