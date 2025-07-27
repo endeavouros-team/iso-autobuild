@@ -13,6 +13,10 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 # copy live session Wallpaper and files into ISO structure:
 cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
+# copy testers log helper to liveusers home
+cp logsend.sh "EndeavourOS-ISO/airootfs/root/endeavouros-skel-liveuser/src/etc/skel/"
+chmod +x "EndeavourOS-ISO/airootfs/root/endeavouros-skel-liveuser/src/etc/skel/logsend.sh"
+
 # Copy packages from Build Calamares git packages into ISO structure:
 #cp /home/build/packages/* "EndeavourOS-ISO/airootfs/root/packages/"
 #ls "EndeavourOS-ISO/airootfs/root/packages/"
