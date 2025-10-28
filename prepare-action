@@ -24,6 +24,8 @@ chmod +x "EndeavourOS-ISO/airootfs/root/endeavouros-skel-liveuser/src/etc/skel/l
 # Get latest calamares devel package
 mkdir -p "EndeavourOS-ISO/airootfs/root/packages"
 wget -P "EndeavourOS-ISO/airootfs/root/packages/" "https://github.com/endeavouros-team/calamares-devel-package/releases/download/latest/calamares-git-latest-any.pkg.tar.zst"
+echo "------> check local packages"
+ls "EndeavourOS-ISO/airootfs/root/packages/"
 
 # Get mirrorlist for offline installs
 mkdir "EndeavourOS-ISO/airootfs/etc/pacman.d"
