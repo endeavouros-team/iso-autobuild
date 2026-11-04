@@ -22,7 +22,6 @@ jobs:
           server_type: ccx33       # 8 Dedicated AMD EPYC Cores, 32 GB RAM, 240 GB NVMe SSD
           image: ubuntu-24.04
           mode: create
-          # NEW: Automatically install Docker on the Hetzner machine before starting the runner setup
           pre_runner_script: |
             apt-get update
             apt-get install -y docker.io
@@ -48,8 +47,6 @@ jobs:
         run: echo "TIME=$(date +'%H-%M')" >> $GITHUB_ENV
 
       # Running the Arch Linux build framework inside a privileged container directly via steps
-      # Docker is now fully available on the host machine
-       Tibia Build Process
       - name: Execute ISO Build within Privileged Arch Container
         run: |
           docker run --privileged --rm \
@@ -83,5 +80,5 @@ jobs:
         with:
           hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
           github_token: ${{ secrets.GH_PAT_HETZNER }}
-          server_id: ${{ needs.start-runner.outputs.server-id }}
+          server_id: ${{ secrets.HETZNER_API_TOKEN }}
           mode: delete
