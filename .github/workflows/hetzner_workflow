@@ -1,0 +1,80 @@
+name: Build EndeavourOS devel ISO (Hetzner Cloud)
+
+on:
+  repository_dispatch:
+    types: [calamares-done]
+  workflow_dispatch:
+
+jobs:
+  # JOB 1: Dynamic provisioning of the high-performance build server via Hetzner API
+  start-runner:
+    runs-on: ubuntu-latest
+    outputs:
+      runner-label: ${{ steps.start-vps.outputs.label }}
+    steps:
+      - name: Spin up Hetzner VPS via API
+        id: start-vps
+        uses: philmtd/hetzner-cloud-github-runner@v1
+        with:
+          hetzner_token: ${{ secrets.HETZNER_API_TOKEN }}
+          github_token: ${{ secrets.GH_PAT_HETZNER }}
+          server_type: ccx33       # 8 Dedicated AMD EPYC Cores, 32 GB RAM, 240 GB NVMe SSD
+          image: ubuntu-24.04
+
+  # JOB 2: Execution of compilation and ISO build workflow on the Hetzner runner
+  build:
+    needs: start-runner
+    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Executes natively on the Hetzner node
+    timeout-minutes: 120
+
+    permissions:
+      contents: write
+
+    # Running the Arch Linux build framework inside a privileged container on the host
+    container:
+      image: archlinux:latest
+      options: --privileged
+
+    steps:
+      - uses: actions/checkout@v4 # Upgraded to v4 for optimized repository fetching
+
+      - name: Set current date as environment variable
+        run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+
+      - name: Set current time as environment variable
+        run: echo "TIME=$(date +'%H-%M')" >> $GITHUB_ENV
+
+      - name: Add EndeavourOS Repo
+        run: bash add-EndeavourOS
+
+      - name: preparations to build ISO
+        run: bash prepare-action
+
+      - name: Build ISO
+        run: bash build-iso
+
+      - name: cleanup space
+        run: bash cleanup.sh
+
+      - name: tarball release files
+        run: |
+          cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/ || true
+          cd EndeavourOS-ISO/out
+          tar -czvf EndeavourOS-${{ env.DATE }}-${{ env.TIME }}-devel-iso.tar.gz *.sha512sum *.iso *.log
+
+      - name: Upload server_DEVEL
+        run: |
+          curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "${{ secrets.SERVER_STRING_DEVEL }}"
+
+  # JOB 3: Mandatory infrastructure teardown to prevent unexpected billing charges
+  stop-runner:
+    needs: [start-runner, build]
+    runs-on: ubuntu-latest
+    if: always() # Ensures the instance is destroyed even if the build steps fail
+    steps:
+      - name: Destroy Hetzner VPS via API
+        uses: philmtd/hetzner-cloud-github-runner@v1
+        with:
+          hetzner_token: ${{ secrets.HETZNER_API_TOKEN }}
+          github_token: ${{ secrets.GH_PAT_HETZNER }}
+          label: ${{ needs.start-runner.outputs.runner-label }}
