@@ -73,7 +73,7 @@ jobs:
           # Upload archive with explicit target URL
           curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "$CREDENTIALS" "$FTP_URL"
 
-  # JOB 3: Mandatory infrastructure teardown to prevent unexpected billing charges
+# JOB 3: Mandatory infrastructure teardown to prevent unexpected billing charges
   stop-runner:
     needs: [start-runner, build]
     runs-on: ubuntu-latest
@@ -84,5 +84,6 @@ jobs:
         with:
           hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
           github_token: ${{ secrets.GH_PAT_HETZNER }}
-          server_id: ${{ needs.start-runner.outputs.server-id }} # Fixed: Now correctly passing the server ID
+          server_id: ${{ needs.start-runner.outputs.server-id }}
           mode: delete
+        continue-on-error: true
