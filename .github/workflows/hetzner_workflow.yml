@@ -10,7 +10,7 @@ jobs:
   start-runner:
     runs-on: ubuntu-latest
     outputs:
-      runner-label: ${{ steps.start-vps.outputs.label }} # Fixed: cyclenerd natively outputs 'label'
+      runner-label: ${{ steps.start-vps.outputs.label }} # The dynamically generated unique server name from cyclenerd
       server-id: ${{ steps.start-vps.outputs.server_id }} # Stores the unique server ID for the teardown job
     steps:
       - name: Spin up Hetzner VPS via API
@@ -26,7 +26,7 @@ jobs:
   # JOB 2: Execution of compilation and ISO build workflow on the Hetzner runner
   build:
     needs: start-runner
-    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Now receives the correct dynamic label
+    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Executes natively on the fresh Hetzner node
     timeout-minutes: 120
 
     permissions:
@@ -41,9 +41,7 @@ jobs:
       - name: Set current time as environment variable
         run: echo "TIME=$(date +'%H-%M')" >> $GITHUB_ENV
 
-      # Running the Arch Linux build framework inside a privileged container directly via steps
-      # This circumvents pre-evaluation bugs and uses unthrottled NVMe I/O performance
-       Pentest / Execution
+      # Running the Arch Linux build framework inside a privileged container via runtime orchestration
       - name: Execute ISO Build within Privileged Arch Container
         run: |
           docker run --privileged --rm \
