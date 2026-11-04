@@ -68,7 +68,7 @@ jobs:
       # Fixed: Added secure quotes around the secret to prevent parsing errors on the host system
       - name: Upload server_DEVEL
         run: |
-          curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "${{ secrets.SERVER_STRING_DEVEL }}"
+          curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "${{ secrets.SERVER_STRING_PRIVATE }}"
 
   # JOB 3: Mandatory infrastructure teardown to prevent unexpected billing charges
   stop-runner:
