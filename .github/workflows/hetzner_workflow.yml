@@ -10,15 +10,15 @@ jobs:
   start-runner:
     runs-on: ubuntu-latest
     outputs:
-      runner-label: ${{ steps.start-vps.outputs.name }} # The name of the server acts as the GitHub label
-      server-id: ${{ steps.start-vps.outputs.server_id }} # Store the server ID for the teardown job
+      runner-label: ${{ steps.start-vps.outputs.runner-name }} # Fixed: cyclenerd outputs 'runner_name' (hyphenated as runner-name by GitHub actions)
+      server-id: ${{ steps.start-vps.outputs.server_id }}     # Store the server ID for the teardown job
     steps:
       - name: Spin up Hetzner VPS via API
         id: start-vps
         uses: cyclenerd/hcloud-github-runner@v1
         with:
           hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
-          github_token: ${{ secrets.GH_PAT_HETZNER }} # Fixed: Using your custom Secret name
+          github_token: ${{ secrets.GH_PAT_HETZNER }}
           server_type: ccx33       # 8 Dedicated AMD EPYC Cores, 32 GB RAM, 240 GB NVMe SSD
           image: ubuntu-24.04
           mode: create             # Instructs the action to create a new server
@@ -26,7 +26,7 @@ jobs:
   # JOB 2: Execution of compilation and ISO build workflow on the Hetzner runner
   build:
     needs: start-runner
-    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Executes natively on the Hetzner node
+    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Now receives the valid runner name
     timeout-minutes: 120
 
     permissions:
@@ -78,6 +78,6 @@ jobs:
         uses: cyclenerd/hcloud-github-runner@v1
         with:
           hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
-          github_token: ${{ secrets.GH_PAT_HETZNER }} # Fixed: Using your custom Secret name
+          github_token: ${{ secrets.GH_PAT_HETZNER }}
           server_id: ${{ needs.start-runner.outputs.server-id }} # Passing the explicit server_id to delete
           mode: delete             # Instructs the action to destroy the server
