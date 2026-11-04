@@ -2,16 +2,14 @@
 # clone ISO sources and join the path:
 git clone "https://github.com/endeavouros-team/EndeavourOS-ISO.git"
 
-patch "EndeavourOS-ISO/run_before_squashfs.sh" < run_before_squashfs.sh.patch
-
 # patch packages:
-patch "EndeavourOS-ISO/packages.x86_64" < packages.x86_64.patch
+#patch "EndeavourOS-ISO/packages.x86_64" < packages.x86_64.patch
 
 # patch profiledef.sh -- set isoname to unstable:
 patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 
 # copy live session Wallpaper and files into ISO structure:
-cp livewall.png "EndeavourOS-ISO/airootfs/root/"
+#cp livewall.png "EndeavourOS-ISO/airootfs/root/"
 
 # copy testers log helper to liveusers home
 cp logsend.sh "EndeavourOS-ISO/airootfs/root/endeavouros-skel-liveuser/src/etc/skel/"
@@ -64,7 +62,7 @@ chmod +x "./"{"mkarchiso","run_before_squashfs.sh"}
 echo "%wheel         ALL = (ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 pacman -Syu
 # downgrade squashfs-tools [nov 2025] latest version (4.7.3-1) segfaults on image creation
-pacman -U --noconfirm https://archive.archlinux.org/packages/s/squashfs-tools/squashfs-tools-4.7.2-1-x86_64.pkg.tar.zst
+#pacman -U --noconfirm https://archive.archlinux.org/packages/s/squashfs-tools/squashfs-tools-4.7.2-1-x86_64.pkg.tar.zst
 useradd -m -G wheel -s /bin/bash build
 chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
