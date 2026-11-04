@@ -63,11 +63,15 @@ jobs:
               cd EndeavourOS-ISO/out && \
               tar -czvf EndeavourOS-${{ env.DATE }}-${{ env.TIME }}-devel-iso.tar.gz *.sha512sum *.iso *.log
             "
-
-      # Fixed: Added secure quotes around the secret to prevent parsing errors on the host system
       - name: Upload server_DEVEL
         run: |
-          curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "${{ secrets.SERVER_STRING_DEVEL }}"
+          # Extract credentials and target URL from secret
+          # Format: user:pass ftp://server/path/
+          CREDENTIALS=$(echo "${{ secrets.SERVER_STRING_DEVEL }}" | cut -d' ' -f1)
+          FTP_URL=$(echo "${{ secrets.SERVER_STRING_DEVEL }}" | cut -d' ' -f2)
+          
+          # Upload archive with explicit target URL
+          curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "$CREDENTIALS" "$FTP_URL"
 
   # JOB 3: Mandatory infrastructure teardown to prevent unexpected billing charges
   stop-runner:
