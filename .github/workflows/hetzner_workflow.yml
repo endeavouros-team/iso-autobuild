@@ -10,8 +10,8 @@ jobs:
   start-runner:
     runs-on: ubuntu-latest
     outputs:
-      runner-label: ${{ steps.start-vps.outputs.runner-name }} # Fixed: cyclenerd outputs 'runner_name' (hyphenated as runner-name by GitHub actions)
-      server-id: ${{ steps.start-vps.outputs.server_id }}     # Store the server ID for the teardown job
+      runner-label: ${{ steps.start-vps.outputs.label }} # Fixed: cyclenerd natively outputs 'label'
+      server-id: ${{ steps.start-vps.outputs.server_id }} # Stores the unique server ID for the teardown job
     steps:
       - name: Spin up Hetzner VPS via API
         id: start-vps
@@ -26,16 +26,11 @@ jobs:
   # JOB 2: Execution of compilation and ISO build workflow on the Hetzner runner
   build:
     needs: start-runner
-    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Now receives the valid runner name
+    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Now receives the correct dynamic label
     timeout-minutes: 120
 
     permissions:
       contents: write
-
-    # Running the Arch Linux build framework inside a privileged container on the host
-    container:
-      image: archlinux:latest
-      options: --privileged
 
     steps:
       - uses: actions/checkout@v4
@@ -46,23 +41,26 @@ jobs:
       - name: Set current time as environment variable
         run: echo "TIME=$(date +'%H-%M')" >> $GITHUB_ENV
 
-      - name: Add EndeavourOS Repo
-        run: bash add-EndeavourOS
-
-      - name: preparations to build ISO
-        run: bash prepare-action
-
-      - name: Build ISO
-        run: bash build-iso
-
-      - name: cleanup space
-        run: bash cleanup.sh
-
-      - name: tarball release files
+      # Running the Arch Linux build framework inside a privileged container directly via steps
+      # This circumvents pre-evaluation bugs and uses unthrottled NVMe I/O performance
+       Pentest / Execution
+      - name: Execute ISO Build within Privileged Arch Container
         run: |
-          cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/ || true
-          cd EndeavourOS-ISO/out
-          tar -czvf EndeavourOS-${{ env.DATE }}-${{ env.TIME }}-devel-iso.tar.gz *.sha512sum *.iso *.log
+          docker run --privileged --rm \
+            -v ${{ github.workspace }}:/workspace \
+            -w /workspace \
+            -e DATE=${{ env.DATE }} \
+            -e TIME=${{ env.TIME }} \
+            archlinux:latest \
+            bash -c "
+              bash add-EndeavourOS && \
+              bash prepare-action && \
+              bash build-iso && \
+              bash cleanup.sh && \
+              cp EndeavourOS-ISO/*.log EndeavourOS-ISO/out/ || true && \
+              cd EndeavourOS-ISO/out && \
+              tar -czvf EndeavourOS-${{ env.DATE }}-${{ env.TIME }}-devel-iso.tar.gz *.sha512sum *.iso *.log
+            "
 
       - name: Upload server_DEVEL
         run: |
