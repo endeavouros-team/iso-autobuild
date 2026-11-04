@@ -4,7 +4,7 @@
 
 [![Build EndeavourOS devel ISO](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/autobuild.yml/badge.svg)](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/autobuild.yml)
 
-Currently unable to build ISO as of limitations on Github.
+Now using external Docker runner.
 
 GitHub action and needed scripts:
 
