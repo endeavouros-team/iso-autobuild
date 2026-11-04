@@ -10,16 +10,18 @@ jobs:
   start-runner:
     runs-on: ubuntu-latest
     outputs:
-      runner-label: ${{ steps.start-vps.outputs.label }}
+      runner-label: ${{ steps.start-vps.outputs.name }} # The name of the server acts as the GitHub label
+      server-id: ${{ steps.start-vps.outputs.server_id }} # Store the server ID for the teardown job
     steps:
       - name: Spin up Hetzner VPS via API
         id: start-vps
-        uses: cyclenerd/hcloud-github-runner@v1 # Fixed: Updated repository path
+        uses: cyclenerd/hcloud-github-runner@v1
         with:
-          hetzner_token: ${{ secrets.HETZNER_API_TOKEN }}
-          github_token: ${{ secrets.GH_PAT_HETZNER }}
+          hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
+          github_token: ${{ secrets.GH_PAT_HETZNER }} # Fixed: Using your custom Secret name
           server_type: ccx33       # 8 Dedicated AMD EPYC Cores, 32 GB RAM, 240 GB NVMe SSD
           image: ubuntu-24.04
+          mode: create             # Instructs the action to create a new server
 
   # JOB 2: Execution of compilation and ISO build workflow on the Hetzner runner
   build:
@@ -36,7 +38,7 @@ jobs:
       options: --privileged
 
     steps:
-      - uses: actions/checkout@v4 # Upgraded to v4 for optimized repository fetching
+      - uses: actions/checkout@v4
 
       - name: Set current date as environment variable
         run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
@@ -73,8 +75,9 @@ jobs:
     if: always() # Ensures the instance is destroyed even if the build steps fail
     steps:
       - name: Destroy Hetzner VPS via API
-        uses: cyclenerd/hcloud-github-runner@v1 # Fixed: Updated repository path
+        uses: cyclenerd/hcloud-github-runner@v1
         with:
-          hetzner_token: ${{ secrets.HETZNER_API_TOKEN }}
-          github_token: ${{ secrets.GH_PAT_HETZNER }}
-          label: ${{ needs.start-runner.outputs.runner-label }}
+          hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
+          github_token: ${{ secrets.GH_PAT_HETZNER }} # Fixed: Using your custom Secret name
+          server_id: ${{ needs.start-runner.outputs.server-id }} # Passing the explicit server_id to delete
+          mode: delete             # Instructs the action to destroy the server
