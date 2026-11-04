@@ -10,8 +10,8 @@ jobs:
   start-runner:
     runs-on: ubuntu-latest
     outputs:
-      runner-label: ${{ steps.start-vps.outputs.label }} # The dynamically generated unique server name from cyclenerd
-      server-id: ${{ steps.start-vps.outputs.server_id }} # Stores the unique server ID for the teardown job
+      runner-label: ${{ steps.start-vps.outputs.label }}
+      server-id: ${{ steps.start-vps.outputs.server_id }}
     steps:
       - name: Spin up Hetzner VPS via API
         id: start-vps
@@ -21,12 +21,18 @@ jobs:
           github_token: ${{ secrets.GH_PAT_HETZNER }}
           server_type: ccx33       # 8 Dedicated AMD EPYC Cores, 32 GB RAM, 240 GB NVMe SSD
           image: ubuntu-24.04
-          mode: create             # Instructs the action to create a new server
+          mode: create
+          # NEW: Automatically install Docker on the Hetzner machine before starting the runner setup
+          pre_runner_script: |
+            apt-get update
+            apt-get install -y docker.io
+            systemctl start docker
+            systemctl enable docker
 
   # JOB 2: Execution of compilation and ISO build workflow on the Hetzner runner
   build:
     needs: start-runner
-    runs-on: ${{ needs.start-runner.outputs.runner-label }} # Executes natively on the fresh Hetzner node
+    runs-on: ${{ needs.start-runner.outputs.runner-label }}
     timeout-minutes: 120
 
     permissions:
@@ -41,7 +47,9 @@ jobs:
       - name: Set current time as environment variable
         run: echo "TIME=$(date +'%H-%M')" >> $GITHUB_ENV
 
-      # Running the Arch Linux build framework inside a privileged container via runtime orchestration
+      # Running the Arch Linux build framework inside a privileged container directly via steps
+      # Docker is now fully available on the host machine
+       Tibia Build Process
       - name: Execute ISO Build within Privileged Arch Container
         run: |
           docker run --privileged --rm \
@@ -75,5 +83,5 @@ jobs:
         with:
           hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
           github_token: ${{ secrets.GH_PAT_HETZNER }}
-          server_id: ${{ needs.start-runner.outputs.server-id }} # Passing the explicit server_id to delete
-          mode: delete             # Instructs the action to destroy the server
+          server_id: ${{ needs.start-runner.outputs.server-id }}
+          mode: delete
