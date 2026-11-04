@@ -65,11 +65,4 @@ chown -R build:build "airootfs/root/endeavouros-skel-liveuser"
 cd "airootfs/root/endeavouros-skel-liveuser"
 sudo -u build makepkg -f
 
-# Add missing eos-settings-plasma back in
-get_pkg() {
-    mkdir -p /tmp/pkg-cache \
-    && pacman -Syw "$1" --cachedir /tmp/pkg-cache --noconfirm \
-    && cp /tmp/pkg-cache/* ../packages/
-}
-
 get_pkg "eos-settings-plasma"
