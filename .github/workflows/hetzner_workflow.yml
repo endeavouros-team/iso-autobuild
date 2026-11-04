@@ -65,6 +65,7 @@ jobs:
               tar -czvf EndeavourOS-${{ env.DATE }}-${{ env.TIME }}-devel-iso.tar.gz *.sha512sum *.iso *.log
             "
 
+      # Fixed: Added secure quotes around the secret to prevent parsing errors on the host system
       - name: Upload server_DEVEL
         run: |
           curl -g -k -T EndeavourOS-ISO/out/*.tar.gz -u "${{ secrets.SERVER_STRING_DEVEL }}"
@@ -80,5 +81,5 @@ jobs:
         with:
           hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
           github_token: ${{ secrets.GH_PAT_HETZNER }}
-          server_id: ${{ secrets.HETZNER_API_TOKEN }}
+          server_id: ${{ needs.start-runner.outputs.server-id }} # Fixed: Now correctly passing the server ID
           mode: delete
