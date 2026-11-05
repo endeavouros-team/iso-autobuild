@@ -9,6 +9,10 @@ jobs:
     permissions:
       actions: write
     steps:
+      # Check out repository code to initialize the working directory and .git
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Delete old workflow runs via GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
