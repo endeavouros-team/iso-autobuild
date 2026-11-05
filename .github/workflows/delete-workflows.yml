@@ -11,14 +11,17 @@ jobs:
     permissions:
       actions: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Delete runs older than 7 days
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Calculate timestamp for 7 days ago
+          # Calculate timestamp for 7 days ago (604800 seconds)
           SEVEN_DAYS_AGO=$(( $(date +%s) - 604800 ))
           
-          # Pass the cutoff variable properly via --arg to jq
+          # Fetch all runs and delete those older than the threshold
           gh run list --limit 100 --json databaseId,createdAt | \
             jq -r --argjson cutoff "$SEVEN_DAYS_AGO" \
             '.[] | select((.createdAt | fromdate) < $cutoff) | .databaseId' | while read -r run_id; do
