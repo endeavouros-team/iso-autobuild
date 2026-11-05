@@ -18,33 +18,34 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Generate ISO 8601 timestamp for 24 hours ago
           THRESHOLD_DATE=$(date -u -d "1 day ago" +%Y-%m-%dT%H:%M:%SZ)
-          
           echo "Searching for workflow runs created before: $THRESHOLD_DATE..."
           
-          # Fetch matching run IDs using native --created filter
-          RUNS_TO_DELETE=$(gh run list --limit 100 --created "<$THRESHOLD_DATE" --json databaseId --jq '.[].databaseId')
+          PAGE=1
+          TOTAL_DELETED=0
           
-          if [ -z "$RUNS_TO_DELETE" ]; then
-            echo "No workflow runs found older than 1 day."
-            exit 0
-          fi
-          
-          TOTAL_FOUND=$(echo "$RUNS_TO_DELETE" | grep -v '^$' | wc -l)
-          echo "Found: $TOTAL_FOUND run(s) eligible for deletion."
-          
-          DELETED_COUNT=0
-          
-          while read -r run_id; do
-            if [ -n "$run_id" ]; then
-              echo "Deleting run ID: $run_id"
-              if gh run delete "$run_id"; then
-                DELETED_COUNT=$((DELETED_COUNT + 1))
-              else
-                echo "Failed to delete run ID: $run_id"
-              fi
+          while true; do
+            echo "Fetching page $PAGE..."
+            RUNS_TO_DELETE=$(gh run list --limit 100 --page "$PAGE" --created "<$THRESHOLD_DATE" --json databaseId --jq '.[].databaseId')
+            
+            # If no runs are returned on this page, we are done
+            if [ -z "$RUNS_TO_DELETE" ]; then
+              echo "No more runs found on page $PAGE."
+              break
             fi
-          done <<< "$RUNS_TO_DELETE"
+            
+            while read -r run_id; do
+              if [ -n "$run_id" ]; then
+                echo "Deleting run ID: $run_id"
+                if gh run delete "$run_id"; then
+                  TOTAL_DELETED=$((TOTAL_DELETED + 1))
+                else
+                  echo "Failed to delete run ID: $run_id"
+                fi
+              fi
+            done <<< "$RUNS_TO_DELETE"
+            
+            PAGE=$((PAGE + 1))
+          done
           
-          echo "Successfully deleted: $DELETED_COUNT of $TOTAL_FOUND runs."
+          echo "Successfully deleted a total of $TOTAL_DELETED old runs."
