@@ -21,12 +21,34 @@ jobs:
           # Calculate timestamp for 7 days ago (604800 seconds)
           SEVEN_DAYS_AGO=$(( $(date +%s) - 604800 ))
           
-          # Fetch all runs and delete those older than the threshold
-          gh run list --limit 100 --json databaseId,createdAt | \
+          echo "Searching for workflow runs older than 7 days..."
+          
+          # Fetch matching run IDs
+          RUNS_TO_DELETE=$(gh run list --limit 100 --json databaseId,createdAt | \
             jq -r --argjson cutoff "$SEVEN_DAYS_AGO" \
-            '.[] | select((.createdAt | fromdate) < $cutoff) | .databaseId' | while read -r run_id; do
+            '.[] | select((.createdAt | fromdate) < $cutoff) | .databaseId')
+          
+          if [ -z "$RUNS_TO_DELETE" ]; then
+            echo "No workflow runs found older than 7 days."
+            exit 0
+          fi
+          
+          # Count total found runs
+          TOTAL_FOUND=$(echo "$RUNS_TO_DELETE" | grep -v '^$' | wc -l)
+          echo "Found: $TOTAL_FOUND run(s) eligible for deletion."
+          
+          DELETED_COUNT=0
+          
+          # Iterate and delete runs
+          while read -r run_id; do
             if [ -n "$run_id" ]; then
               echo "Deleting run ID: $run_id"
-              gh run delete "$run_id" || true
+              if gh run delete "$run_id"; then
+                DELETED_COUNT=$((DELETED_COUNT + 1))
+              else
+                echo "Failed to delete run ID: $run_id"
+              fi
             fi
-          done
+          done <<< "$RUNS_TO_DELETE"
+          
+          echo "Successfully deleted: $DELETED_COUNT of $TOTAL_FOUND runs."
