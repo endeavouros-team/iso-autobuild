@@ -77,13 +77,18 @@ jobs:
   stop-runner:
     needs: [start-runner, build]
     runs-on: ubuntu-latest
-    if: always() # Ensures the instance is destroyed even if the build steps fail
+    if: always()
     steps:
-      - name: Destroy Hetzner VPS via API
-        uses: cyclenerd/hcloud-github-runner@v1
-        with:
-          hcloud_token: ${{ secrets.HETZNER_API_TOKEN }}
-          github_token: ${{ secrets.GH_PAT_HETZNER }}
-          server_id: ${{ needs.start-runner.outputs.server-id }}
-          mode: delete
+      - name: Ensure Hetzner VPS is destroyed
+        run: |
+          # Use server ID from start-runner output
+          SERVER_ID="${{ needs.start-runner.outputs.server-id }}"
+          
+          if [ -n "$SERVER_ID" ] && [ "$SERVER_ID" != "null" ]; then
+            echo "Deleting server instance: ${SERVER_ID}"
+            curl -s -X DELETE "https://api.hetzner.cloud/v1/servers/${SERVER_ID}" \
+              -H "Authorization: Bearer ${{ secrets.HETZNER_API_TOKEN }}"
+          else
+            echo "No valid server ID found."
+          fi
         continue-on-error: true
