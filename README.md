@@ -2,7 +2,7 @@
 
 [![Maintenance](https://img.shields.io/maintenance/yes/2026.svg)]()
 
-[![Build EndeavourOS devel ISO](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/autobuild.yml/badge.svg)](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/autobuild.yml)
+[![Build EndeavourOS devel ISO (Hetzner Cloud)](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/hetzner_workflow.yml/badge.svg)](https://github.com/endeavouros-team/iso-autobuild/actions/workflows/hetzner_workflow.yml)
 
 Now using external Docker runner.
 
