@@ -4,41 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  cleanup:
+  prune-old-actions:
     runs-on: ubuntu-latest
     permissions:
       actions: write
+      contents: read
     steps:
-      # Check out repository code to initialize the working directory and .git
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Delete old workflow runs via GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Fetch repository name
-          REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
-          
-          # Calculate threshold date for 1 day ago
-          THRESHOLD_DATE=$(date -u -d "1 day ago" +%Y-%m-%dT%H:%M:%SZ)
-          echo "Target repository: $REPO"
-          echo "Deleting workflow runs created before: $THRESHOLD_DATE"
-          
-          # Retrieve database IDs of completed runs older than 1 day
-          RUNS_TO_DELETE=$(gh run list --status completed --limit 500 --created "<$THRESHOLD_DATE" --json databaseId -q '.[].databaseId')
-          
-          if [ -z "$RUNS_TO_DELETE" ]; then
-            echo "No workflow runs found older than 1 day."
-            exit 0
-          fi
-          
-          # Iterate through IDs and delete each run individually
-          for run_id in $RUNS_TO_DELETE; do
-            if [ -n "$run_id" ]; then
-              echo "Deleting run ID: $run_id"
-              gh run delete "$run_id"
-            fi
-          done
-          
-          echo "Batch cleanup completed successfully."
+      - name: Prune old workflow runs
+        uses: yanovian/prune-old-actions@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          days-ago: 1
+          dry-run: false
+          keep-latest: 0
