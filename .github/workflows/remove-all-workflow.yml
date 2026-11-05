@@ -9,13 +9,10 @@ jobs:
     permissions:
       actions: write
     steps:
-      - name: Delete all old workflow runs
+      - name: Delete old workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           retain_days: 1
           keep_minimum_runs: 0
-          # Forces inclusion of all statuses (completed, success, failure, canceled etc.)
-          branch: ""
-          exclude_workflow_ids: ""
