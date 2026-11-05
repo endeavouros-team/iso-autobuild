@@ -67,11 +67,10 @@ sudo -u build makepkg -f
 get_pkg() {
     local pkg_name="$1"
     local cache_dir="/tmp/pkg-cache"
-    local target_dir="../packages"
+    local target_dir="../../packages"
 
     mkdir -p "$cache_dir" "$target_dir" || return 1
 
-    # Download only the target package without resolving dependencies
     if pacman -Sw --nodeps --cachedir "$cache_dir" --noconfirm "$pkg_name"; then
         cp "$cache_dir"/*.pkg.tar.zst "$target_dir"/
     else
