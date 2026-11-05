@@ -1,14 +1,29 @@
-- name: Delete runs older than 1 day
+name: Clean old workflow runs
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Delete runs older than 1 day
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Generate ISO 8601 timestamp for 24 hours ago compatible with GitHub CLI --created filter
-          # Format: YYYY-MM-DDTHH:MM:SSZ
+          # Generate ISO 8601 timestamp for 24 hours ago
           THRESHOLD_DATE=$(date -u -d "1 day ago" +%Y-%m-%dT%H:%M:%SZ)
           
           echo "Searching for workflow runs created before: $THRESHOLD_DATE..."
           
-          # Use native --created filter (< threshold) to fetch old runs directly
+          # Fetch matching run IDs using native --created filter
           RUNS_TO_DELETE=$(gh run list --limit 100 --created "<$THRESHOLD_DATE" --json databaseId --jq '.[].databaseId')
           
           if [ -z "$RUNS_TO_DELETE" ]; then
