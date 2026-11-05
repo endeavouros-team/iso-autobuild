@@ -1,4 +1,4 @@
-name: clean specific workflow runs
+name: Clean old workflow runs
 
 on:
   schedule:
@@ -6,19 +6,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  delete_runs:
+  cleanup:
     runs-on: ubuntu-latest
     permissions:
       actions: write
     steps:
-      - name: Delete old runs of specific workflow
+      - name: Delete runs older than 7 days
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Gets all run IDs of the specific workflow, sorted by date, skipping the newest 2 and deleting the rest
-          gh run list --workflow "Build EndeavourOS devel ISO (Hetzner Cloud)" --limit 100 --json databaseId --jq '.[2:] | .[].databaseId' | while read -r run_id; do
+          # Calculate timestamp for 7 days ago (604800 seconds)
+          SEVEN_DAYS_AGO=$(( $(date +%s) - 604800 ))
+          
+          # Fetch all runs and delete those older than the threshold
+          gh run list --limit 100 --json databaseId,createdAt --jq --argjson cutoff "$SEVEN_DAYS_AGO" \
+            '.[] | select((.createdAt | fromdate) < $cutoff) | .databaseId' | while read -r run_id; do
             if [ -n "$run_id" ]; then
               echo "Deleting run ID: $run_id"
-              gh run delete "$run_id" > /dev/null || true
+              gh run delete "$run_id" || true
             fi
           done
