@@ -1,5 +1,4 @@
 name: Cleanup Workflow Runs
-name: Cleanup Workflow Runs
 
 on:
   workflow_dispatch:
