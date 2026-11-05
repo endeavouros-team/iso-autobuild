@@ -15,11 +15,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Calculate timestamp for 7 days ago (604800 seconds)
+          # Calculate timestamp for 7 days ago
           SEVEN_DAYS_AGO=$(( $(date +%s) - 604800 ))
           
-          # Fetch all runs and delete those older than the threshold
-          gh run list --limit 100 --json databaseId,createdAt --jq --argjson cutoff "$SEVEN_DAYS_AGO" \
+          # Pass the cutoff variable properly via --arg to jq
+          gh run list --limit 100 --json databaseId,createdAt | \
+            jq -r --argjson cutoff "$SEVEN_DAYS_AGO" \
             '.[] | select((.createdAt | fromdate) < $cutoff) | .databaseId' | while read -r run_id; do
             if [ -n "$run_id" ]; then
               echo "Deleting run ID: $run_id"
