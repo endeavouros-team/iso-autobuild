@@ -4,42 +4,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  cleanup:
+  del_runs:
     runs-on: ubuntu-latest
     permissions:
       actions: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Delete runs older than 1 day
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          THRESHOLD_DATE=$(date -u -d "1 day ago" +%Y-%m-%dT%H:%M:%SZ)
-          echo "Searching for workflow runs created before: $THRESHOLD_DATE..."
-          
-          RUNS_TO_DELETE=$(gh run list --limit 500 --created "<$THRESHOLD_DATE" --json databaseId --jq '.[].databaseId')
-          
-          if [ -z "$RUNS_TO_DELETE" ]; then
-            echo "No workflow runs found older than 1 day."
-            exit 0
-          fi
-          
-          TOTAL_FOUND=$(echo "$RUNS_TO_DELETE" | grep -v '^$' | wc -l)
-          echo "Found: $TOTAL_FOUND run(s) eligible for deletion."
-          
-          DELETED_COUNT=0
-          
-          while read -r run_id; do
-            if [ -n "$run_id" ]; then
-              echo "Deleting run ID: $run_id"
-              if gh run delete "$run_id"; then
-                DELETED_COUNT=$((DELETED_COUNT + 1))
-              else
-                echo "Failed to delete run ID: $run_id"
-              fi
-            fi
-          done <<< "$RUNS_TO_DELETE"
-          
-          echo "Successfully deleted: $DELETED_COUNT of $TOTAL_FOUND runs."
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 1
+          keep_minimum_runs: 0
