@@ -2,7 +2,7 @@ name: Clean old workflow runs
 
 on:
   schedule:
-    - cron: "0 0 */2 * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -14,22 +14,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Delete runs older than 7 days
+      - name: Delete runs older than 1 day
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Calculate timestamp for 7 days ago (604800 seconds)
-          SEVEN_DAYS_AGO=$(( $(date +%s) - 86400 ))
+          # Calculate timestamp for 1 day ago (86400 seconds)
+          ONE_DAY_AGO=$(( $(date +%s) - 86400 ))
           
-          echo "Searching for workflow runs older than 7 days..."
+          echo "Searching for workflow runs older than 1 day..."
           
           # Fetch matching run IDs
-          RUNS_TO_DELETE=$(gh run list --limit 200 --json databaseId,createdAt | \
-            jq -r --argjson cutoff "$SEVEN_DAYS_AGO" \
+          RUNS_TO_DELETE=$(gh run list --limit 100 --json databaseId,createdAt | \
+            jq -r --argjson cutoff "$ONE_DAY_AGO" \
             '.[] | select((.createdAt | fromdate) < $cutoff) | .databaseId')
           
           if [ -z "$RUNS_TO_DELETE" ]; then
-            echo "No workflow runs found older than 7 days."
+            echo "No workflow runs found older than 1 day."
             exit 0
           fi
           
