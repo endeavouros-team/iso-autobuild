@@ -19,4 +19,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           days-ago: 1
           dry-run: false
-          keep-latest: 2
+          keep-latest: 0
