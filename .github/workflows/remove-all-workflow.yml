@@ -16,6 +16,6 @@ jobs:
           repository: ${{ github.repository }}
           retain_days: 1
           keep_minimum_runs: 0
-          # Wichtig: Schließt auch manuell ausgelöste und andere Event-Typen ein
+          # Important: Also includes manually triggered and other event types
           delete_workflow_pattern: ""
           delete_workflow_by_state_pattern: "all"
