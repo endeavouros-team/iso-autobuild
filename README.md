@@ -8,4 +8,9 @@ Now using external Docker runner.
 
 GitHub action and needed scripts:
 
-action that builds the ISO directly from latest EndeavourOS-ISO sources (git) together with latest development package for calamares (installer).
+Action that builds the ISO directly from latest EndeavourOS-ISO sources, if calamares changes.
+
+https://github.com/endeavouros-team/calamares-devel-package
+
+
+
