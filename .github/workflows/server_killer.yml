@@ -6,29 +6,40 @@ on:
   workflow_dispatch:
 
 jobs:
-    reap-stale-runners:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Delete orphaned gh-runner instances older than 2 hours
-              env:
-                  HCLOUD_TOKEN: ${{ secrets.HETZNER_API_TOKEN }}
-              run: |
-                  # Define threshold: servers older than 120 minutes are considered orphaned
-                  CUTOFF=$(date -u -d '120 minutes ago' +"%Y-%m-%dT%H:%M:%SZ")
-                  echo "Threshold for stale runners: $CUTOFF"
+  reap-stale-runners:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete orphaned gh-runner instances older than 120 minutes
+        env:
+          HCLOUD_TOKEN: ${{ secrets.HETZNER_API_TOKEN }}
+        run: |
+          # Define threshold: servers older than 120 minutes are considered orphaned
+          CUTOFF=$(date -u -d '120 minutes ago' +"%Y-%m-%dT%H:%M:%SZ")
+          echo "Threshold for stale runners: $CUTOFF"
 
-                  # Fetch all servers from Hetzner Cloud API
-                  RESPONSE=$(curl -s -H "Authorization: Bearer ${HCLOUD_TOKEN}" \
-                    "https://api.hetzner.cloud/v1/servers")
+          # Fetch all servers from Hetzner Cloud API
+          RESPONSE=$(curl -s -H "Authorization: Bearer ${HCLOUD_TOKEN}" \
+            "https://api.hetzner.cloud/v1/servers")
 
-                  # Parse servers, filter by name prefix and creation timestamp, then delete
-                  echo "$RESPONSE" | jq -r \
-                    --arg cutoff "$CUTOFF" \
-                    '.servers[] | select(.name | startswith("gh-runner-")) | select(.created < $cutoff) | "\(.id) \(.name) \(.created)"' | \
-                    while read -r id name created; do
-                      if [ -n "$id" ] && [ "$id" != "null" ]; then
-                        echo "Deleting orphaned server: $name (ID: $id, Created: $created)"
-                        curl -s -X DELETE "https://api.hetzner.cloud/v1/servers/${id}" \
-                          -H "Authorization: Bearer ${HCLOUD_TOKEN}"
-                      fi
-                    done
+          # Check if API returned valid JSON with servers
+          SERVER_COUNT=$(echo "$RESPONSE" | jq '.servers | length' 2>/dev/null || echo "0")
+          echo "Total servers currently in Hetzner project: $SERVER_COUNT"
+
+          # Parse servers, filter by name prefix and creation timestamp
+          MATCHES=$(echo "$RESPONSE" | jq -r \
+            --arg cutoff "$CUTOFF" \
+            '.servers[]? | select(.name | startswith("gh-runner-")) | select(.created < $cutoff) | "\(.id)|\(.name)|\(.created)"')
+
+          if [ -z "$MATCHES" ]; then
+            echo "No orphaned runners found older than $CUTOFF."
+          else
+            echo "Found stale runners to delete:"
+            echo "$MATCHES" | while IFS='|' read -r id name created; do
+              if [ -n "$id" ] && [ "$id" != "null" ]; then
+                echo "Deleting orphaned server: $name (ID: $id, Created: $created)"
+                HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE "https://api.hetzner.cloud/v1/servers/${id}" \
+                  -H "Authorization: Bearer ${HCLOUD_TOKEN}")
+                echo "API Delete Response Status for $name: $HTTP_STATUS"
+              fi
+            done
+          fi
