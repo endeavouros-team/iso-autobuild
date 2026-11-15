@@ -1,0 +1,34 @@
+name: Hetzner Orphaned Runner Cleanup
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+  workflow_dispatch:
+
+jobs:
+    reap-stale-runners:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Delete orphaned gh-runner instances older than 2 hours
+              env:
+                  HCLOUD_TOKEN: ${{ secrets.HETZNER_API_TOKEN }}
+              run: |
+                  # Define threshold: servers older than 120 minutes are considered orphaned
+                  CUTOFF=$(date -u -d '120 minutes ago' +"%Y-%m-%dT%H:%M:%SZ")
+                  echo "Threshold for stale runners: $CUTOFF"
+
+                  # Fetch all servers from Hetzner Cloud API
+                  RESPONSE=$(curl -s -H "Authorization: Bearer ${HCLOUD_TOKEN}" \
+                    "https://api.hetzner.cloud/v1/servers")
+
+                  # Parse servers, filter by name prefix and creation timestamp, then delete
+                  echo "$RESPONSE" | jq -r \
+                    --arg cutoff "$CUTOFF" \
+                    '.servers[] | select(.name | startswith("gh-runner-")) | select(.created < $cutoff) | "\(.id) \(.name) \(.created)"' | \
+                    while read -r id name created; do
+                      if [ -n "$id" ] && [ "$id" != "null" ]; then
+                        echo "Deleting orphaned server: $name (ID: $id, Created: $created)"
+                        curl -s -X DELETE "https://api.hetzner.cloud/v1/servers/${id}" \
+                          -H "Authorization: Bearer ${HCLOUD_TOKEN}"
+                      fi
+                    done
