@@ -1,3 +1,16 @@
+name: Sync to GitLab
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
+  delete:
+
+permissions:
+  contents: read
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -12,6 +25,9 @@ jobs:
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_PAT }}
         run: |
-          git remote add gitlab https://oauth2:${{ env.GITLAB_TOKEN }}@gitlab.com/endeavouros-filemirror/iso-autobuild.git
+          # Add GitLab remote using environment variable directly in shell
+          git remote add gitlab "https://oauth2:${GITLAB_TOKEN}@gitlab.com/endeavouros-filemirror/iso-autobuild.git"
+          
+          # Mirror all branches and tags
           git push gitlab --all --force
           git push gitlab --tags --force
