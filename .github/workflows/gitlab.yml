@@ -15,19 +15,14 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Push to GitLab
+      - name: Mirror repository to GitLab
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLAB_TOKEN: ${{ secrets.GITLAB_PAT }}
         run: |
-          # Add GitLab remote using environment variable directly in shell
-          git remote add gitlab "https://oauth2:${GITLAB_TOKEN}@gitlab.com/endeavouros-filemirror/iso-autobuild.git"
-          
-          # Mirror all branches and tags
-          git push gitlab --all --force
-          git push gitlab --tags --force
+          # Clone full bare mirror from GitHub (works for both public and private repos)
+          git clone --mirror "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" mirror.git
+          cd mirror.git
+
+          # Push exact 1:1 state (all branches, tags, and ref deletions) to GitLab
+          git push --mirror "https://oauth2:${GITLAB_TOKEN}@gitlab.com/endeavouros-filemirror/iso-autobuild.git"
