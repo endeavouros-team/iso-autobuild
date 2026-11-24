@@ -83,7 +83,7 @@ jobs:
         run: |
           # Use server ID from start-runner output
           SERVER_ID="${{ needs.start-runner.outputs.server-id }}"
-          
+
           if [ -n "$SERVER_ID" ] && [ "$SERVER_ID" != "null" ]; then
             echo "Deleting server instance: ${SERVER_ID}"
             curl -s -X DELETE "https://api.hetzner.cloud/v1/servers/${SERVER_ID}" \
