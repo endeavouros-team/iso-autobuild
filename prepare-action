@@ -15,6 +15,9 @@ patch "EndeavourOS-ISO/profiledef.sh" < profiledef.sh.patch
 cp logsend.sh "EndeavourOS-ISO/airootfs/root/endeavouros-skel-liveuser/src/etc/skel/"
 chmod +x "EndeavourOS-ISO/airootfs/root/endeavouros-skel-liveuser/src/etc/skel/logsend.sh"
 
+# Get Community Editions GUI into the ISO
+wget -qN --show-progress -P "EndeavourOS-ISO/airootfs/usr/bin/" "https://raw.githubusercontent.com/EndeavourOS-Community-Editions/editions-list/refs/heads/main/editions"
+
 # Get latest calamares devel package from github and eos-settings-plasma 
 mkdir -p "EndeavourOS-ISO/airootfs/root/packages"
 wget -P "EndeavourOS-ISO/airootfs/root/packages/" "https://github.com/endeavouros-team/calamares-devel-package/releases/download/latest/calamares-git-latest-any.pkg.tar.zst"
